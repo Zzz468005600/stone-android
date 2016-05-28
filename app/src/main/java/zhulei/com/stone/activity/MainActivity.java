@@ -8,10 +8,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
     LinearLayout mUserInfoLayout;
     TextView mLoginBtn;
+
+    private long mExitTime;
 
     @OnClick(R.id.fab)
     public void onFabClicked(){
@@ -123,5 +127,19 @@ public class MainActivity extends AppCompatActivity
     @Subscribe
     public void onEvent(Envents.LoginEvent event){
         refreshHeader();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            if (System.currentTimeMillis() - mExitTime > 2000){
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            }else {
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

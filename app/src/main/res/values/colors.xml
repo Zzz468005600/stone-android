@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#33475f</color>
+    <color name="colorPrimaryDark">#3a475f</color>
+    <color name="colorPrimaryDarker">#4b475f</color>
+    <color name="colorAccent">#7f475f</color>
+
+    <color name="font_title">#333</color>
+    <color name="font_text">#666</color>
+    <color name="font_info">#999</color>
+    <color name="font_tips">#CCC</color>
+
+    <color name="border_block">#EAEAEA</color>
+    <color name="divider">#EEE</color>
+
+    <color name="color_aaa">#AAA</color>
+</resources>

@@ -30,9 +30,6 @@ import zhulei.com.stone.util.CheckUtil;
  */
 public class LoginFragment extends BaseFragment {
 
-    public static final String SQL_MOBILE = "mobilePhoneNumber";
-    public static final String SQL_PSW = "password";
-
     @BindView(R.id.user_mobile)
     TextInputEditText mUserMobile;
     @BindView(R.id.user_password)
@@ -81,10 +78,6 @@ public class LoginFragment extends BaseFragment {
     @OnClick(R.id.register_btn)
     public void onRegisterBtnClicked(){
         pushFragment(VerifyFragment.newInstance(VerifyFragment.REGISTER));
-    }
-    @OnClick(R.id.forget_button)
-    public void onForgetBtnClicked(){
-        pushFragment(VerifyFragment.newInstance(VerifyFragment.RESET));
     }
 
     @Override

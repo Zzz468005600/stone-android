@@ -20,5 +20,8 @@
     <string name="reset_success">密码重置成功</string>
 
     <string name="never_login">您从未登陆过</string>
-    <string name="first_login">登陆过才可修改密码</string>
+    <string name="first_login">请先登陆</string>
+
+    <string name="account_info">账号</string>
+    <string name="log_out">退出账号</string>
 </resources>

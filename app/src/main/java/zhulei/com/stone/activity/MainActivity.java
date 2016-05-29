@@ -22,8 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import zhulei.com.stone.R;
 import zhulei.com.stone.event.Envents;
+import zhulei.com.stone.fragment.VerifyFragment;
 import zhulei.com.stone.manager.UserManager;
 
 public class MainActivity extends AppCompatActivity
@@ -104,11 +106,20 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_reset) {
+            if (UserManager.instance().hasLogin()){
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra(LoginActivity.ARG_LOGIN, VerifyFragment.RESET);
+                startActivity(intent);
+            }else {
+                Toast.makeText(this, getString(R.string.first_login), Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        } else if (id == R.id.nav_logout) {
             UserManager.instance().reset();
+            BmobUser.logOut(this);
             refreshHeader();
+            return true;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

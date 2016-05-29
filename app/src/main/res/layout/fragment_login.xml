@@ -166,17 +166,6 @@
                     android:textSize="@dimen/font_title"
                     android:textColor="@android:color/white"
                     android:background="@drawable/bg_btn_main"/>
-
-                <TextView
-                    android:id="@+id/forget_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/margin_block"
-                    android:layout_marginRight="@dimen/margin_block"
-                    android:text="修改密码"
-                    android:textColor="@color/font_text"
-                    android:textSize="@dimen/font_title" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

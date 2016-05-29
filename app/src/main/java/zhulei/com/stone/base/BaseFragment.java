@@ -33,6 +33,7 @@ public abstract class BaseFragment extends AppFragment {
             mLoadingDialog = new MaterialDialog.Builder(getActivity())
                     .content(R.string.loading)
                     .progress(true, 0)
+                    .canceledOnTouchOutside(false)
                     .show();
         }
     }

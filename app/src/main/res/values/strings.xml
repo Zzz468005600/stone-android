@@ -24,4 +24,6 @@
 
     <string name="account_info">账号</string>
     <string name="log_out">退出账号</string>
+
+    <string name="loading">正在加载...</string>
 </resources>

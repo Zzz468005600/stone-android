@@ -81,9 +81,11 @@ public class VerifyFragment extends BaseFragment {
                 user.setUsername(mUserName.getText() + "");
                 user.setMobilePhoneNumber(mMobile.getText() + "");
                 user.setPassword(mUserPsw.getText() + "");
+                showProgress();
                 user.signUp(getContext(), new SaveListener() {
                     @Override
                     public void onSuccess() {
+                        hideProgress();
                         if (getActivity() != null && isVisible()) {
                             Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
                             popFragment();
@@ -92,6 +94,7 @@ public class VerifyFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(int i, String s) {
+                        hideProgress();
                         if (getActivity() != null && isVisible()) {
                             Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                         }
@@ -104,10 +107,12 @@ public class VerifyFragment extends BaseFragment {
             if (!TextUtils.isEmpty(mOldPsw.getText())) {
                 BmobUser user = BmobUser.getCurrentUser(getContext());
                 if (user != null) {
+                    showProgress();
                     user.updateCurrentUserPassword(getContext(), mOldPsw.getText().toString(),
                             mUserPsw.getText().toString(), new UpdateListener() {
                                 @Override
                                 public void onSuccess() {
+                                    hideProgress();
                                     if (getActivity() != null && isVisible()) {
                                         Toast.makeText(getContext(), getString(R.string.reset_success), Toast.LENGTH_SHORT).show();
                                         popFragment();
@@ -116,6 +121,7 @@ public class VerifyFragment extends BaseFragment {
 
                                 @Override
                                 public void onFailure(int i, String s) {
+                                    hideProgress();
                                     if (getActivity() != null && isVisible()) {
                                         if (s.contains("sessionToken")){
                                             Toast.makeText(getContext(), getString(R.string.first_login), Toast.LENGTH_SHORT).show();

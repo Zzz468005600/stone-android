@@ -39,4 +39,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.github.orhanobut:hawk:1.23'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
 }

@@ -90,15 +90,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -132,11 +123,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            if (System.currentTimeMillis() - mExitTime > 2000){
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                mExitTime = System.currentTimeMillis();
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
             }else {
-                System.exit(0);
+                if (System.currentTimeMillis() - mExitTime > 2000){
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    mExitTime = System.currentTimeMillis();
+                }else {
+                    System.exit(0);
+                }
             }
             return true;
         }

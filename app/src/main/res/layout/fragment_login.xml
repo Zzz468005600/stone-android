@@ -62,7 +62,7 @@
                         android:layout_marginStart="48dp"
                         android:hint="请输入您的手机号码">
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/user_name"
+                            android:id="@+id/user_mobile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
@@ -174,7 +174,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/margin_block"
                     android:layout_marginRight="@dimen/margin_block"
-                    android:text="忘记密码？"
+                    android:text="修改密码"
                     android:textColor="@color/font_text"
                     android:textSize="@dimen/font_title" />
             </LinearLayout>

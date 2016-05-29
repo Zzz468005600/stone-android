@@ -33,7 +33,7 @@ public abstract class AppFragment extends Fragment {
         getHoldingActivity().pushFragment(fragment);
     }
 
-    protected void popFragment(BaseFragment fragment){
+    protected void popFragment(){
         getHoldingActivity().popFragment();
     }
 

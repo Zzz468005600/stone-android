@@ -28,14 +28,18 @@ public abstract class BaseFragment extends AppFragment {
         actionBar.setDisplayShowHomeEnabled(true);
     }
 
-    protected void showProgress() {
+    protected void showProgress(String content){
         if (getActivity() != null && isVisible()) {
             mLoadingDialog = new MaterialDialog.Builder(getActivity())
-                    .content(R.string.loading)
+                    .content(content)
                     .progress(true, 0)
                     .canceledOnTouchOutside(false)
                     .show();
         }
+    }
+
+    protected void showProgress() {
+        showProgress(getString(R.string.loading));
     }
 
     protected void hideProgress(){

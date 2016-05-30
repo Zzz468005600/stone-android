@@ -6,7 +6,9 @@ package zhulei.com.stone.event;
 public class Envents {
 
     public static class LoginEvent{
+    }
 
+    public static class UpdateUserHeader{
     }
 
 }

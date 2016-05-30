@@ -6,6 +6,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_block">15dp</dimen>
+    <dimen name="margin_block_10">10dp</dimen>
+
+    <dimen name="header_with">100dp</dimen>
+    <dimen name="header_height">100dp</dimen>
+    <dimen name="header_with_70">70dp</dimen>
+    <dimen name="header_height_70">70dp</dimen>
 
     <dimen name="font_xlarge">20sp</dimen>
     <dimen name="font_large">18sp</dimen>
@@ -13,6 +20,4 @@
     <dimen name="font_normal">14sp</dimen>
     <dimen name="font_small">12sp</dimen>
     <dimen name="font_tiny">10sp</dimen>
-
-    <dimen name="margin_block">15dp</dimen>
 </resources>

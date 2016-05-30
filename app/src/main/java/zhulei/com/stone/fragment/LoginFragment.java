@@ -19,6 +19,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.base.BaseFragment;
+import zhulei.com.stone.entity.User;
 import zhulei.com.stone.event.Envents;
 import zhulei.com.stone.manager.UserManager;
 import zhulei.com.stone.util.CheckUtil;
@@ -54,9 +55,9 @@ public class LoginFragment extends BaseFragment {
             if (!TextUtils.isEmpty(mUserPsw.getText())){
                 showProgress();
                 BmobUser.loginByAccount(getContext(), mUserMobile.getText() + "", mUserPsw.getText() + "",
-                        new LogInListener<BmobUser>() {
+                        new LogInListener<User>() {
                             @Override
-                            public void done(BmobUser user, BmobException e) {
+                            public void done(User user, BmobException e) {
                                 hideProgress();
                                 if (getActivity() != null && isVisible()){
                                     if (user != null){

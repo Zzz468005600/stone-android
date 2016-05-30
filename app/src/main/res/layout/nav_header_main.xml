@@ -14,8 +14,8 @@
 
     <zhulei.com.stone.widget.CircleImageView
         android:id="@+id/user_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/header_with_70"
+        android:layout_height="@dimen/header_height_70"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/user_header"
         app:civ_border_color="@android:color/white"

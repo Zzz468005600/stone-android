@@ -11,9 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
     LinearLayout mUserInfoLayout;
     TextView mLoginBtn;
+    ImageView mUserHeader;
 
     private long mExitTime;
 
@@ -58,15 +62,33 @@ public class MainActivity extends AppCompatActivity
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     private void initView(){
         ButterKnife.bind(this);
         mLoginBtn = (TextView) mNavView.getHeaderView(0).findViewById(R.id.login_btn);
         mUserInfoLayout = (LinearLayout) mNavView.getHeaderView(0).findViewById(R.id.login_info_layout);
+        mUserHeader = (ImageView) mNavView.getHeaderView(0).findViewById(R.id.user_header);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+        mUserHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UserManager.instance().hasLogin()){
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(MainActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -86,6 +108,21 @@ public class MainActivity extends AppCompatActivity
             ((TextView)mUserInfoLayout.findViewById(R.id.user_name)).setText(UserManager.instance().getUserName());
             ((TextView)mUserInfoLayout.findViewById(R.id.user_info)).setText(UserManager.instance().getPhoneNumber());
             mLoginBtn.setVisibility(View.GONE);
+            if (UserManager.instance().getUserHeader() != null){
+                Picasso.with(this)
+                        .load(UserManager.instance().getUserHeader())
+                        .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
+                                getResources().getDimensionPixelOffset(R.dimen.header_height_70))
+                        .centerCrop()
+                        .into(mUserHeader);
+            }else {
+                Picasso.with(this)
+                        .load(R.drawable.user_header)
+                        .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
+                                getResources().getDimensionPixelOffset(R.dimen.header_height_70))
+                        .centerCrop()
+                        .into(mUserHeader);
+            }
         }else {
             mLoginBtn.setVisibility(View.VISIBLE);
             mUserInfoLayout.setVisibility(View.GONE);
@@ -128,6 +165,11 @@ public class MainActivity extends AppCompatActivity
 
     @Subscribe
     public void onEvent(Envents.LoginEvent event){
+        refreshHeader();
+    }
+
+    @Subscribe
+    public void onEvent(Envents.UpdateUserHeader event){
         refreshHeader();
     }
 

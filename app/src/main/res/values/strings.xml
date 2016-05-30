@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stone</string>
+    <string name="app">Stone</string>
     <string name="profile">个人中心</string>
     <string name="login">登陆</string>
     <string name="reset_psw">修改密码</string>

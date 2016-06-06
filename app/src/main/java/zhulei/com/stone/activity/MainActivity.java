@@ -48,7 +48,12 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.fab)
     public void onFabClicked(){
-
+        if (!UserManager.instance().hasLogin()){
+            Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3a475f</color>
     <color name="colorPrimaryDarker">#4b475f</color>
     <color name="colorAccent">#7f475f</color>
+    <color name="transparent_normal">#55ffffff</color>
 
     <color name="font_title">#333</color>
     <color name="font_text">#666</color>

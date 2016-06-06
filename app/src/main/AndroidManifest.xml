@@ -45,6 +45,11 @@
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
+            android:name=".activity.PostActivity"
+            android:label="@string/post"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <activity
             android:configChanges="orientation|screenSize"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
 

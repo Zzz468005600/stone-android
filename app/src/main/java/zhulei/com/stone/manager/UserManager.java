@@ -101,4 +101,8 @@ public class UserManager {
     public String getUserHeader() {
         return userHeader;
     }
+
+    public void logOut(){
+        reset();
+    }
 }

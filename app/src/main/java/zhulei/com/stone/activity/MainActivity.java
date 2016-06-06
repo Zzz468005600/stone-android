@@ -108,24 +108,24 @@ public class MainActivity extends AppCompatActivity
             ((TextView)mUserInfoLayout.findViewById(R.id.user_name)).setText(UserManager.instance().getUserName());
             ((TextView)mUserInfoLayout.findViewById(R.id.user_info)).setText(UserManager.instance().getPhoneNumber());
             mLoginBtn.setVisibility(View.GONE);
-            if (UserManager.instance().getUserHeader() != null){
-                Picasso.with(this)
-                        .load(UserManager.instance().getUserHeader())
-                        .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
-                                getResources().getDimensionPixelOffset(R.dimen.header_height_70))
-                        .centerCrop()
-                        .into(mUserHeader);
-            }else {
-                Picasso.with(this)
-                        .load(R.drawable.user_header)
-                        .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
-                                getResources().getDimensionPixelOffset(R.dimen.header_height_70))
-                        .centerCrop()
-                        .into(mUserHeader);
-            }
         }else {
             mLoginBtn.setVisibility(View.VISIBLE);
             mUserInfoLayout.setVisibility(View.GONE);
+        }
+        if (UserManager.instance().getUserHeader() != null){
+            Picasso.with(this)
+                    .load(UserManager.instance().getUserHeader())
+                    .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
+                            getResources().getDimensionPixelOffset(R.dimen.header_height_70))
+                    .centerCrop()
+                    .into(mUserHeader);
+        }else {
+            Picasso.with(this)
+                    .load(R.drawable.user_header)
+                    .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
+                            getResources().getDimensionPixelOffset(R.dimen.header_height_70))
+                    .centerCrop()
+                    .into(mUserHeader);
         }
     }
 
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity
             }
             return true;
         } else if (id == R.id.nav_logout) {
-            UserManager.instance().reset();
+            UserManager.instance().logOut();
             BmobUser.logOut(this);
             refreshHeader();
             return true;

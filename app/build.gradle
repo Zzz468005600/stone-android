@@ -30,9 +30,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     //3.4.7依赖，其他诸如`org.apache.http.legacy`,如果你需要兼容Android6.0可自行添加
-    compile 'cn.bmob.android:bmob-sdk:3.4.7'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.7.0'
+    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+    compile 'cn.bmob.android:http-legacy:1.0'
     //bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:0.8'
     compile 'com.jakewharton:butterknife:8.0.1'

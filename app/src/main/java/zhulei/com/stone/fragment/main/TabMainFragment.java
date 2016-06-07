@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.adapter.TabMainAdapter;
 import zhulei.com.stone.entity.Message;
+import zhulei.com.stone.event.Envents;
 import zhulei.com.stone.manager.UserManager;
 
 /**
@@ -38,6 +42,18 @@ public class TabMainFragment extends Fragment{
 
     private ArrayList<Message> mListData = new ArrayList<>();
     private TabMainAdapter mTabMainAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Nullable
     @Override
@@ -71,6 +87,10 @@ public class TabMainFragment extends Fragment{
     private void getListData(int skip, int limit){
         if (!UserManager.instance().hasLogin()){
             Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+            if (mListData.size() == 0){
+                mListContent.setVisibility(View.GONE);
+                mEmpty.setVisibility(View.VISIBLE);
+            }
             if (mListContainer.isRefreshing()){
                 mListContainer.setRefreshing(false);
             }
@@ -110,5 +130,10 @@ public class TabMainFragment extends Fragment{
                 }
             }
         });
+    }
+
+    @Subscribe
+    public void onEvent(Envents.LoginEvent event){
+        getListData(0, 10);
     }
 }

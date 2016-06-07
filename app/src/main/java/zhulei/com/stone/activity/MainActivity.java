@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity
                     .resize(getResources().getDimensionPixelOffset(R.dimen.header_with_70),
                             getResources().getDimensionPixelOffset(R.dimen.header_height_70))
                     .centerCrop()
+                    .placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.loading_fail)
                     .into(mUserHeader);
         }else {
             Picasso.with(this)

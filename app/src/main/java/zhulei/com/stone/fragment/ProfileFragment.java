@@ -81,6 +81,8 @@ public class ProfileFragment extends BaseFragment {
                     .resize(getContext().getResources().getDimensionPixelOffset(R.dimen.header_with),
                             getContext().getResources().getDimensionPixelOffset(R.dimen.header_height))
                     .centerCrop()
+                    .placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.loading_fail)
                     .into(mUserHeader);
         }else {
             Picasso.with(getContext())

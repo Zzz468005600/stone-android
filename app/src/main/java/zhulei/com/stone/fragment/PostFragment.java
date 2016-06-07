@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
@@ -38,6 +39,7 @@ import zhulei.com.stone.R;
 import zhulei.com.stone.base.BaseFragment;
 import zhulei.com.stone.entity.Message;
 import zhulei.com.stone.entity.Photo;
+import zhulei.com.stone.entity.User;
 import zhulei.com.stone.manager.UserManager;
 import zhulei.com.stone.util.ImageUtil;
 
@@ -214,6 +216,8 @@ public class PostFragment extends BaseFragment {
 
     private void sendMessage(List<String> images) {
         Message message = new Message();
+        User user = BmobUser.getCurrentUser(getContext(), User.class);
+        message.setUser(user);
         if (images != null) {
             message.setImages(ImageUtil.transImages(images));
             message.setText(mEtText.getText() + "");

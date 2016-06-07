@@ -7,6 +7,7 @@ import cn.bmob.v3.BmobObject;
  */
 public class Message extends BmobObject {
 
+    private User user;
     private String text;
     private String images;
 
@@ -18,11 +19,19 @@ public class Message extends BmobObject {
         this.text = text;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getText() {
         return text;
     }
 
     public String getImages() {
         return images;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardElevation="3dp"
+    card_view:cardMaxElevation="3dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <zhulei.com.stone.widget.CircleImageView
+                android:id="@+id/user_header"
+                android:layout_width="@dimen/size_thumbnail_small"
+                android:layout_height="@dimen/size_thumbnail_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_header"/>
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/user_header"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_normal"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                tools:text = "shitou"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/font_small"
+            android:textColor="@color/dark_beige"
+            tools:text= "2016年5月24日"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_text"
+            android:textSize="@dimen/font_normal"
+            android:layout_marginTop="8dp"
+            tools:text = "1111111111111111111"/>
+
+        <zhulei.com.stone.widget.NoScrollGridView
+            android:id="@+id/gv_images"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:numColumns="3">
+
+        </zhulei.com.stone.widget.NoScrollGridView>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,5 +1,8 @@
 package zhulei.com.stone.util;
 
+import android.text.TextUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +21,18 @@ public class ImageUtil {
                 }
             }
             return imagesTrans.toString();
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getImages(String images){
+        ArrayList<String> imagesList = new ArrayList<>();
+        if (!TextUtils.isEmpty(images)){
+            String[] imageArray = images.split("#");
+            for (int i = 0; i < imageArray.length; i ++){
+                imagesList.add(imageArray[i]);
+            }
+            return imagesList;
         }
         return null;
     }

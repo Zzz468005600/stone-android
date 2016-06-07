@@ -3,7 +3,9 @@ package zhulei.com.stone.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import zhulei.com.stone.R;
+import zhulei.com.stone.adapter.MainViewPagerAdapter;
 import zhulei.com.stone.event.Envents;
 import zhulei.com.stone.fragment.VerifyFragment;
 import zhulei.com.stone.manager.UserManager;
@@ -40,6 +43,11 @@ public class MainActivity extends AppCompatActivity
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.main_tab)
+    TabLayout mTabLayout;
+    @BindView(R.id.main_vp)
+    ViewPager mViewPager;
+
     LinearLayout mUserInfoLayout;
     TextView mLoginBtn;
     ImageView mUserHeader;
@@ -104,7 +112,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         mNavView.setNavigationItemSelectedListener(this);
+
+        setUpViewPager();
         refreshHeader();
+    }
+
+    private void setUpViewPager() {
+        mViewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager()));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     private void refreshHeader() {

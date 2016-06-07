@@ -13,6 +13,7 @@
 
     <color name="border_block">#EAEAEA</color>
     <color name="divider">#EEE</color>
+    <color name="dark_beige">#B09366</color>
 
     <color name="color_aaa">#AAA</color>
 </resources>

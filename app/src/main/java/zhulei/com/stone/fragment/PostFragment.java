@@ -245,13 +245,11 @@ public class PostFragment extends BaseFragment {
 
         private ArrayList<Photo> mData;
         private Context mContext;
-        private Fragment fragment;
 
         private OnItemClickListener listener;
 
         public PhotoAdapter(ArrayList<Photo> photos, Fragment fragment) {
             mData = photos;
-            this.fragment = fragment;
             mContext = fragment.getContext();
         }
 

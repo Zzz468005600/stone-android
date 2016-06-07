@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -115,6 +116,7 @@ public class TabMainFragment extends Fragment{
                         mEmpty.setVisibility(View.GONE);
                         mListData.clear();
                         mListData.addAll(list);
+                        Collections.reverse(mListData);
                         mTabMainAdapter.notifyDataSetChanged();
                     }
                 }

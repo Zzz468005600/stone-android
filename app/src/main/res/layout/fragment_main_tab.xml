@@ -27,7 +27,8 @@
                 android:textSize="@dimen/font_xlarge"
                 android:textColor="@color/font_title"
                 android:gravity="center"
-                android:text="暂无数据"/>
+                android:text="暂无数据"
+                android:visibility="gone"/>
         </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

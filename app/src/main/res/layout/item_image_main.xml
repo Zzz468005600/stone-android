@@ -5,8 +5,8 @@
     android:gravity="center">
     <ImageView
         android:id="@+id/image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitCenter"/>
 </LinearLayout>

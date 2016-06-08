@@ -79,9 +79,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         }
         if (images != null && !images.isEmpty()){
             holder.mImages.setVisibility(View.VISIBLE);
-            if (images.size() == 1){
-                holder.mImages.setNumColumns(1);
-            }else if (images.size() <= 4){
+            if (images.size() <= 4){
                 holder.mImages.setNumColumns(2);
             }else {
                 holder.mImages.setNumColumns(3);
@@ -148,19 +146,22 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
                 itemView.setTag(holder);
             }
             ImageViewHolder holder = (ImageViewHolder) itemView.getTag();
-            int with = mContext.getResources().getDisplayMetrics().widthPixels;
+            int with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_xlarge);
             int height = with;
+            ViewGroup.LayoutParams params = holder.mImage.getLayoutParams();
+            params.height = height;
             if (mData.size() > 1 && mData.size() < 5){
-                with /= 2;
+                with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_large);
                 height = with;
             }else if (mData.size() >= 5){
-                with /=3;
+                with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail);
                 height = with;
+                params.height = height;
             }
             Picasso.with(mContext)
                     .load(mData.get(position))
                     .resize(with, height)
-                    .centerCrop()
+                    .centerInside()
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.loading_fail)
                     .into(holder.mImage);

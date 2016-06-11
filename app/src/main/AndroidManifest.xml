@@ -53,6 +53,11 @@
             android:configChanges="orientation|screenSize"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
 
+        <activity
+            android:name=".activity.ImageActivity"
+            android:label="@string/image"/>
+
+
     </application>
 
 </manifest>

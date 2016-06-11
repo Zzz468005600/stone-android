@@ -1,6 +1,7 @@
 package zhulei.com.stone.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import zhulei.com.stone.R;
+import zhulei.com.stone.activity.ImageActivity;
 import zhulei.com.stone.entity.Message;
 import zhulei.com.stone.entity.User;
 import zhulei.com.stone.util.ImageUtil;
@@ -146,22 +148,25 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
                 itemView.setTag(holder);
             }
             ImageViewHolder holder = (ImageViewHolder) itemView.getTag();
-            int with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_xlarge);
+            holder.mImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ImageActivity.class);
+                    intent.putStringArrayListExtra(ImageActivity.ARG_IMAGES, mData);
+                    mContext.startActivity(intent);
+                }
+            });
+            int with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail);
             int height = with;
             ViewGroup.LayoutParams params = holder.mImage.getLayoutParams();
-            params.height = height;
-            if (mData.size() > 1 && mData.size() < 5){
-                with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_large);
-                height = with;
-            }else if (mData.size() >= 5){
-                with = mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail);
-                height = with;
-                params.height = height;
+            params.height = mContext.getResources().getDisplayMetrics().widthPixels / 2;
+            if (mData.size() >= 5){
+                params.height = mContext.getResources().getDisplayMetrics().widthPixels / 3;
             }
             Picasso.with(mContext)
                     .load(mData.get(position))
                     .resize(with, height)
-                    .centerInside()
+                    .centerCrop()
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.loading_fail)
                     .into(holder.mImage);

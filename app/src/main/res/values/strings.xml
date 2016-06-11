@@ -3,6 +3,7 @@
     <string name="profile">个人中心</string>
     <string name="login">登陆</string>
     <string name="post">发表内容</string>
+    <string name="image">查看大图</string>
     <string name="reset_psw">修改密码</string>
     <string name="register">注册</string>
     <string name="login_register">登陆/注册</string>

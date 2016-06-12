@@ -175,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .load(UserManager.instance().getUserHeader())
                 .placeholder(R.drawable.ic_loading)
                 .resize(getResources().getDisplayMetrics().widthPixels,
-                        getResources().getDimensionPixelSize(R.dimen.size_thumbnail))
+                        getResources().getDimensionPixelSize(R.dimen.size_thumbnail_middle))
                 .centerCrop()
                 .error(R.drawable.loading_fail)
                 .into(mUserHeader);

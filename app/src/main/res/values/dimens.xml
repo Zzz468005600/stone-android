@@ -23,6 +23,7 @@
     <dimen name="font_tiny">10sp</dimen>
 
     <dimen name="size_thumbnail">40dp</dimen>
+    <dimen name="size_thumbnail_middle">80dp</dimen>
     <dimen name="size_thumbnail_large">120dp</dimen>
     <dimen name="size_thumbnail_small">30dp</dimen>
     <dimen name="offset_progress">40dp</dimen>

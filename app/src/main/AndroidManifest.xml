@@ -42,6 +42,7 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/profile"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity

@@ -3,6 +3,7 @@ package zhulei.com.stone.fragment.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,9 @@ public class TabMainFragment extends Fragment{
     @BindView(R.id.empty_content)
     TextView mEmpty;
 
+    @BindView(R.id.progress_bar)
+    ContentLoadingProgressBar mProgressBar;
+
     private ArrayList<Message> mListData = new ArrayList<>();
     private TabMainAdapter mTabMainAdapter;
 
@@ -77,6 +81,7 @@ public class TabMainFragment extends Fragment{
         mListContent.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mTabMainAdapter = new TabMainAdapter(getContext(), mListData);
         mListContent.setAdapter(mTabMainAdapter);
+        mProgressBar.show();
         getListData(0 ,10);
     }
 
@@ -108,6 +113,10 @@ public class TabMainFragment extends Fragment{
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);
                     }
+                    if (mProgressBar.getVisibility() == View.VISIBLE){
+                        mProgressBar.hide();
+                        mProgressBar.setVisibility(View.GONE);
+                    }
                     if (list.isEmpty()){
                         mListContent.setVisibility(View.GONE);
                         mEmpty.setVisibility(View.VISIBLE);
@@ -127,6 +136,14 @@ public class TabMainFragment extends Fragment{
                 if (getActivity() != null && isVisible()){
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);
+                    }
+                    if (mProgressBar.getVisibility() == View.VISIBLE){
+                        mProgressBar.hide();
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                    if (mListData.isEmpty()){
+                        mListContent.setVisibility(View.GONE);
+                        mEmpty.setVisibility(View.VISIBLE);
                     }
                     Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 }

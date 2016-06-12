@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class ImageFragment extends BaseFragment {
 
     @BindView(R.id.vp_image)
     ViewPager mVpImage;
+    @BindView(R.id.progress_bar)
+    ContentLoadingProgressBar mProgressBar;
 
     @Override
     protected int getLayoutId() {
@@ -42,8 +46,21 @@ public class ImageFragment extends BaseFragment {
         for (int i = 0; i < mImages.size(); i++){
             mViews.add(LayoutInflater.from(getContext()).inflate(R.layout.vp_image, null));
         }
-        mVpImage.setAdapter(new ImageAdapter(getContext(), mViews, mImages));
+        mVpImage.setAdapter(new ImageAdapter(getContext(), mViews, mImages, listener));
+        mProgressBar.show();
+        mVpImage.setVisibility(View.INVISIBLE);
     }
+
+    private ImageAdapter.Listener listener = new ImageAdapter.Listener() {
+        @Override
+        public void hasLoaded() {
+            if (mProgressBar.getVisibility() == View.VISIBLE){
+                mProgressBar.hide();
+                mProgressBar.setVisibility(View.GONE);
+                mVpImage.setVisibility(View.VISIBLE);
+            }
+        }
+    };
 
     public static ImageFragment newInstance(ArrayList<String> images) {
         ImageFragment fragment = new ImageFragment();
@@ -64,11 +81,13 @@ public class ImageFragment extends BaseFragment {
         private Context mContext;
         private ArrayList<View> mViews;
         private ArrayList<String> mData;
+        private Listener mListener;
 
-        public ImageAdapter(Context context, ArrayList<View> views, ArrayList<String> data){
+        public ImageAdapter(Context context, ArrayList<View> views, ArrayList<String> data, Listener listener){
             this.mContext = context;
             this.mViews =views;
             this.mData = data;
+            this.mListener = listener;
         }
 
         @Override
@@ -92,7 +111,21 @@ public class ImageFragment extends BaseFragment {
                     .centerInside()
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.loading_fail)
-                    .into(imageView);
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            if (mListener != null){
+                                mListener.hasLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onError() {
+                            if (mListener != null){
+                                mListener.hasLoaded();
+                            }
+                        }
+                    });
             container.addView(view);
             return view;
         }
@@ -100,6 +133,10 @@ public class ImageFragment extends BaseFragment {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(mViews.get(position));
+        }
+
+        interface Listener{
+            void hasLoaded();
         }
     }
 

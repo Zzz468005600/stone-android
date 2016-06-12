@@ -18,5 +18,6 @@ public class BaseApplication extends Application {
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
                 .setStorage(HawkBuilder.newSharedPrefStorage(this))
                 .build();
+
     }
 }

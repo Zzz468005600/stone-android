@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import zhulei.com.stone.R;
 import zhulei.com.stone.adapter.MainViewPagerAdapter;
 import zhulei.com.stone.event.Envents;
@@ -70,6 +71,27 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         //默认初始化
         Bmob.initialize(this, "e4d8d7779e054f3fd8b228f060ce1943");
+//        BmobUpdateAgent.initAppVersion(this);
+        //更新
+        BmobUpdateAgent.update(this);
+//        BmobUpdateAgent.setUpdateListener(new BmobUpdateListener() {
+//            @Override
+//            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+//                if (i == UpdateStatus.Yes) {//版本有更新
+//
+//                }else if(i == UpdateStatus.No){
+//                    Toast.makeText(MainActivity.this, "版本无更新", Toast.LENGTH_SHORT).show();
+//                }else if(i==UpdateStatus.EmptyField){//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
+//                    Toast.makeText(MainActivity.this, "请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。", Toast.LENGTH_SHORT).show();
+//                }else if(i==UpdateStatus.IGNORED){
+//                    Toast.makeText(MainActivity.this, "该版本已被忽略更新", Toast.LENGTH_SHORT).show();
+//                }else if(i==UpdateStatus.ErrorSizeFormat){
+//                    Toast.makeText(MainActivity.this, "请检查target_size填写的格式，请使用file.length()方法获取apk大小。", Toast.LENGTH_SHORT).show();
+//                }else if(i==UpdateStatus.TimeOut){
+//                    Toast.makeText(MainActivity.this, "查询出错或查询超时", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         initView();
         EventBus.getDefault().register(this);

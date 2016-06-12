@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <meta-data android:value="Channel ID" android:name="BMOB_CHANNEL"/>
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -58,6 +60,10 @@
             android:name=".activity.ImageActivity"
             android:label="@string/image"/>
 
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
 
     </application>
 

@@ -313,8 +313,8 @@ public class PostFragment extends BaseFragment {
                 btnAdd.setVisibility(View.GONE);
                 Picasso.with(mContext)
                         .load(new File(mData.get(position).localPath))
-                        .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail),
-                                mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail))
+                        .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_middle),
+                                mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_middle))
                         .centerCrop()
                         .into(ivPhoto);
             }

@@ -6,14 +6,14 @@
     <ImageView
         android:id="@+id/btn_add"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_thumbnail"
+        android:layout_height="@dimen/size_thumbnail_middle"
         android:src="@drawable/photo_add"
         android:layout_margin="7dp"/>
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_thumbnail"
+        android:layout_height="@dimen/size_thumbnail_middle"
         android:scaleType="centerCrop"
         android:layout_margin="7dp"/>
 

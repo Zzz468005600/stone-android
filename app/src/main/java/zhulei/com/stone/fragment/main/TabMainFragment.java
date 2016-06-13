@@ -81,7 +81,12 @@ public class TabMainFragment extends Fragment{
         mListContent.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mTabMainAdapter = new TabMainAdapter(getContext(), mListData);
         mListContent.setAdapter(mTabMainAdapter);
-        mProgressBar.show();
+        if(!UserManager.instance().hasLogin()){
+            mProgressBar.setVisibility(View.GONE);
+        }else {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mProgressBar.show();
+        }
         getListData(0 ,10);
     }
 

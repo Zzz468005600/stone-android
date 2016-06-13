@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ import zhulei.com.stone.base.BaseFragment;
 public class ImageFragment extends BaseFragment {
 
     public static final String ARG_IMAGES = "arg_images";
+    public static final String ARG_POSITION = "arg_position";
     private ArrayList<String> mImages;
+    private int mPosition;
     private ArrayList<View> mViews;
 
     @BindView(R.id.vp_image)
@@ -47,6 +50,7 @@ public class ImageFragment extends BaseFragment {
             mViews.add(LayoutInflater.from(getContext()).inflate(R.layout.vp_image, null));
         }
         mVpImage.setAdapter(new ImageAdapter(getContext(), mViews, mImages, listener));
+        mVpImage.setCurrentItem(mPosition);
         mProgressBar.show();
         mVpImage.setVisibility(View.INVISIBLE);
     }
@@ -62,10 +66,11 @@ public class ImageFragment extends BaseFragment {
         }
     };
 
-    public static ImageFragment newInstance(ArrayList<String> images) {
+    public static ImageFragment newInstance(ArrayList<String> images, int position) {
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
         args.putStringArrayList(ARG_IMAGES, images);
+        args.putInt(ARG_POSITION, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,6 +79,7 @@ public class ImageFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mImages = getArguments().getStringArrayList(ARG_IMAGES);
+        mPosition = getArguments().getInt(ARG_POSITION);
     }
 
     public static class ImageAdapter extends PagerAdapter {
@@ -109,6 +115,7 @@ public class ImageFragment extends BaseFragment {
                     .resize(mContext.getResources().getDisplayMetrics().widthPixels,
                             mContext.getResources().getDisplayMetrics().widthPixels)
                     .centerInside()
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.loading_fail)
                     .into(imageView, new Callback() {

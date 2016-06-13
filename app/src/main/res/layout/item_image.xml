@@ -17,7 +17,7 @@
         android:scaleType="centerCrop"
         android:layout_margin="7dp"/>
 
-    <ImageView
+    <zhulei.com.stone.widget.RecyclerImageView
         android:id="@+id/btn_close"
         android:background="@color/transparent_normal"
         android:layout_width="wrap_content"

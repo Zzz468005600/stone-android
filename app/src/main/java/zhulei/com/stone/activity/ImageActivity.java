@@ -13,16 +13,19 @@ import zhulei.com.stone.fragment.ImageFragment;
  */
 public class ImageActivity extends BaseActivity {
 
-    public ArrayList<String> mImages;
+    private ArrayList<String> mImages;
+    private int mPosition;
     public static final String ARG_IMAGES = "images";
+    public static final String ARG_POSITION = "position";
 
     @Override
     protected BaseFragment getFirstFragment() {
-        return ImageFragment.newInstance(mImages);
+        return ImageFragment.newInstance(mImages, mPosition);
     }
 
     @Override
     protected void handleIntent(Intent intent) {
         mImages = intent.getStringArrayListExtra(ARG_IMAGES);
+        mPosition = intent.getIntExtra(ARG_POSITION, 0);
     }
 }

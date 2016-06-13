@@ -58,7 +58,8 @@
 
         <activity
             android:name=".activity.ImageActivity"
-            android:label="@string/image"/>
+            android:label="@string/image"
+            android:process=":picture"/>
 
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"

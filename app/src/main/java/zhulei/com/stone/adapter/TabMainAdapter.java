@@ -2,6 +2,7 @@ package zhulei.com.stone.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ import zhulei.com.stone.util.ImageUtil;
  */
 public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewHolder> {
 
+    public static Object TAG = new Object();
+
     private Context mContext;
     private List<Message> mData;
 
@@ -56,6 +59,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         if (!TextUtils.isEmpty(userHeader)){
             Picasso.with(mContext)
                     .load(userHeader)
+                    .tag(TAG)
+                    .config(Bitmap.Config.ALPHA_8)
                     .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
                             mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
                     .centerCrop()
@@ -65,6 +70,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         }else {
             Picasso.with(mContext)
                     .load(R.drawable.user_header)
+                    .tag(TAG)
+                    .config(Bitmap.Config.ALPHA_8)
                     .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
                             mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
                     .centerCrop()
@@ -140,7 +147,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
             if (itemView == null){
                 itemView = LayoutInflater.from(mContext).inflate(R.layout.item_image_main, parent, false);
@@ -153,6 +160,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ImageActivity.class);
                     intent.putStringArrayListExtra(ImageActivity.ARG_IMAGES, mData);
+                    intent.putExtra(ImageActivity.ARG_POSITION, position);
                     mContext.startActivity(intent);
                 }
             });
@@ -165,7 +173,9 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             }
             Picasso.with(mContext)
                     .load(mData.get(position))
+                    .tag(TAG)
                     .resize(with, height)
+                    .config(Bitmap.Config.ALPHA_8)
                     .centerCrop()
                     .placeholder(R.drawable.ic_loading)
                     .error(R.drawable.loading_fail)

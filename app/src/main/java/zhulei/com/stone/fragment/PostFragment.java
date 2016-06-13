@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -313,8 +314,9 @@ public class PostFragment extends BaseFragment {
                 btnAdd.setVisibility(View.GONE);
                 Picasso.with(mContext)
                         .load(new File(mData.get(position).localPath))
-                        .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_middle),
-                                mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_middle))
+                        .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
+                                mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
+                        .config(Bitmap.Config.ALPHA_8)
                         .centerCrop()
                         .into(ivPhoto);
             }

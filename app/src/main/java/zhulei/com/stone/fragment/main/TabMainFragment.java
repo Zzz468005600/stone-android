@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,6 +47,12 @@ public class TabMainFragment extends Fragment{
     private ArrayList<Message> mListData = new ArrayList<>();
     private TabMainAdapter mTabMainAdapter;
 
+    private boolean isLoading = true;
+    private int mPreviousTotal = 0;
+
+    public static final int THRESHOLD = 2;
+    public static final int SIZE = 10;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +79,31 @@ public class TabMainFragment extends Fragment{
         mListContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getListData(0, 10);
+                getListData(0, SIZE);
             }
         });
 
         mListContent.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mListContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int visibleItemCount = mListContent.getChildCount();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                int firstVisibleItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+                if (isLoading) {
+                    if (totalItemCount > mPreviousTotal) {
+                        isLoading = false;
+                        mPreviousTotal = totalItemCount;
+                    }
+                }
+                if (!isLoading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + THRESHOLD)) {
+                    getListData(totalItemCount, SIZE);
+                    isLoading = true;
+                }
+            }
+        });
         mTabMainAdapter = new TabMainAdapter(getContext(), mListData);
         mListContent.setAdapter(mTabMainAdapter);
 //        mListContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -105,7 +130,8 @@ public class TabMainFragment extends Fragment{
         return instance;
     }
 
-    private void getListData(int skip, int limit){
+    private void getListData(final int skip, int limit){
+        isLoading = true;
         if (!UserManager.instance().hasLogin()){
             Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
             if (mListData.size() == 0){
@@ -119,11 +145,13 @@ public class TabMainFragment extends Fragment{
         }
         BmobQuery<Message> query = new BmobQuery<>();
         query.include("user");
-        query.setLimit(100);//TODO
+        query.setLimit(limit);
         query.setSkip(skip);
+        query.order("-createdAt");
         query.findObjects(getContext(), new FindListener<Message>() {
             @Override
             public void onSuccess(List<Message> list) {
+                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);
@@ -132,15 +160,16 @@ public class TabMainFragment extends Fragment{
                         mProgressBar.hide();
                         mProgressBar.setVisibility(View.GONE);
                     }
-                    if (list.isEmpty()){
+                    if (skip == 0 && list.isEmpty()){
                         mListContent.setVisibility(View.GONE);
                         mEmpty.setVisibility(View.VISIBLE);
                     }else {
                         mListContent.setVisibility(View.VISIBLE);
                         mEmpty.setVisibility(View.GONE);
-                        mListData.clear();
+                        if (skip == 0){
+                            mListData.clear();
+                        }
                         mListData.addAll(list);
-                        Collections.reverse(mListData);
                         mTabMainAdapter.notifyDataSetChanged();
                     }
                 }
@@ -148,6 +177,7 @@ public class TabMainFragment extends Fragment{
 
             @Override
             public void onError(int i, String s) {
+                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);

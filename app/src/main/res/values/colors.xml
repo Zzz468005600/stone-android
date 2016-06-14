@@ -16,4 +16,5 @@
     <color name="dark_beige">#B09366</color>
 
     <color name="color_aaa">#AAA</color>
+    <color name="translucent">#00ffffff</color>
 </resources>

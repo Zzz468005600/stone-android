@@ -63,6 +63,11 @@
             android:process=":picture"/>
 
         <activity
+            android:theme="@style/AppTheme.Translucent"
+            android:name=".activity.CircleActivity"
+            android:label="@string/circle"/>
+
+        <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>

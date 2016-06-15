@@ -183,7 +183,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, CircleActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent(this, PaintActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

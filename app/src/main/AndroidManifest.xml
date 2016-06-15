@@ -68,6 +68,10 @@
             android:label="@string/circle"/>
 
         <activity
+            android:name=".activity.PaintActivity"
+            android:label="画板"/>
+
+        <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>

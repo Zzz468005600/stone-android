@@ -106,16 +106,6 @@ public class TabMainFragment extends Fragment{
         });
         mTabMainAdapter = new TabMainAdapter(getContext(), mListData);
         mListContent.setAdapter(mTabMainAdapter);
-//        mListContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-//                    Picasso.with(getContext()).resumeTag(TabMainAdapter.TAG);
-//                }else {
-//                    Picasso.with(getContext()).pauseTag(TabMainAdapter.TAG);
-//                }
-//            }
-//        });
         if(!UserManager.instance().hasLogin()){
             mProgressBar.setVisibility(View.GONE);
         }else {

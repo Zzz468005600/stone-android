@@ -3,11 +3,14 @@ package zhulei.com.stone.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,6 +38,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
 
     private Context mContext;
     private List<Message> mData;
+
+    private int mOldPosition;
 
     public TabMainAdapter(Context context, ArrayList<Message> data){
         this.mContext =context;
@@ -97,6 +102,20 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         }else {
             holder.mImages.setVisibility(View.GONE);
         }
+
+        if (position > mOldPosition){
+            AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(mContext, R.anim.card_item);
+            holder.mCardItem.setAnimation(set);
+            set.start();
+            mOldPosition = position;
+        }
+
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(TabViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.mCardItem.clearAnimation();
     }
 
     @Override
@@ -106,6 +125,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
 
     class TabViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.card_item)
+        CardView mCardItem;
         @BindView(R.id.user_header)
         ImageView mUserHeader;
         @BindView(R.id.user_name)

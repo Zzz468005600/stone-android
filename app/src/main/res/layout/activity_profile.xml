@@ -95,6 +95,13 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_action_enter"/>
             </LinearLayout>
+
+            <zhulei.com.stone.widget.WaterView
+                android:id="@+id/water_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/action_personal_set"/>
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

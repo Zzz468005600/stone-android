@@ -36,6 +36,7 @@ import zhulei.com.stone.R;
 import zhulei.com.stone.entity.User;
 import zhulei.com.stone.event.Envents;
 import zhulei.com.stone.manager.UserManager;
+import zhulei.com.stone.widget.WaterView;
 
 /**
  * Created by zhulei on 16/5/30.
@@ -51,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView mUserHeaderSmall;
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
+    @BindView(R.id.water_view)
+    WaterView mWaterView;
 
     private MaterialDialog mLoadingDialog;
 
@@ -167,6 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mWaterView.startAnimator();
         refreshHeader();
     }
 

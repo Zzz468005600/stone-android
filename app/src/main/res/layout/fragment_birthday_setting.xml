@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="@dimen/font_title"
+        android:textColor="@color/font_title"
+        android:maxLines="1"
+        android:layout_centerHorizontal="true"
+        app:text="1111111"/>
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_title"
+        android:textColor="@color/font_title"
+        android:layout_below="@id/tv_title1"
+        android:maxLines="1"
+        android:layout_centerHorizontal="true"
+        app:text="2222222222222222"/>
+
+    <ImageView
+        android:id="@+id/iv_user"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_person"/>
+
+    <zhulei.com.stone.widget.BirthdaySettingView
+        android:id="@+id/bs_v"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/translucent"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/iv_user"/>
+
+</RelativeLayout>

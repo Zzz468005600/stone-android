@@ -69,12 +69,16 @@
 
         <activity
             android:name=".activity.PaintActivity"
-            android:label="画板"/>
+            android:label="@string/paint"/>
 
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+
+        <activity
+            android:name=".activity.BirthDaySettingActivity"
+            android:label="@string/birthday_setting"/>
 
     </application>
 

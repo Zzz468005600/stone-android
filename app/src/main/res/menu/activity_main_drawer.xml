@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="个人中心" />
     </group>
 
     <item android:title="@string/account_info">

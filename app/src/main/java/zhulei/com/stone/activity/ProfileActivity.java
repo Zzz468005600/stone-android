@@ -59,7 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.action_personal_set)
     public void onPersonalSetClicked(){
-
+        Intent intent = new Intent(this, BirthDaySettingActivity.class);
+        startActivity(intent);
     }
     @OnClick(R.id.header_set)
     public void onHeaderSetClicked(){

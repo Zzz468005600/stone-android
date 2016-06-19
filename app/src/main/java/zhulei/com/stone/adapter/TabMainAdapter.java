@@ -23,11 +23,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.activity.ImageActivity;
+import zhulei.com.stone.entity.Comment;
 import zhulei.com.stone.entity.Message;
 import zhulei.com.stone.entity.User;
 import zhulei.com.stone.util.ImageUtil;
+import zhulei.com.stone.widget.BageTextView;
 
 /**
  * Created by zhulei on 16/6/6.
@@ -58,7 +62,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
     }
 
     @Override
-    public void onBindViewHolder(TabMainAdapter.TabViewHolder holder, int position) {
+    public void onBindViewHolder(final TabMainAdapter.TabViewHolder holder, int position) {
         final Message message = mData.get(position);
         User user = message.getUser();
         String userHeader = user.getHeader();
@@ -124,6 +128,33 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             }
         });
 
+        holder.mBageTextView.setVisibility(View.GONE);
+        BmobQuery<Comment> query = new BmobQuery<>();
+        query.addWhereEqualTo("message", message);
+        query.setLimit(10);
+        query.setSkip(0);
+        query.findObjects(mContext, new FindListener<Comment>() {
+            @Override
+            public void onSuccess(List<Comment> list) {
+                if (mContext != null && holder.mBageTextView != null){
+                    if (list != null){
+                        if (list.size() == 0){
+                            holder.mBageTextView.setVisibility(View.GONE);
+                        }else if (list.size() < 10){
+                            holder.mBageTextView.setVisibility(View.VISIBLE);
+                            holder.mBageTextView.setText(list.size() + "");
+                        }else {
+                            holder.mBageTextView.setVisibility(View.VISIBLE);
+                            holder.mBageTextView.setText("...");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+            }
+        });
     }
 
     @Override
@@ -153,6 +184,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         TextView mCreate;
         @BindView(R.id.iv_comment)
         ImageView mIvComment;
+        @BindView(R.id.bage)
+        BageTextView mBageTextView;
 
         public TabViewHolder(View itemView) {
             super(itemView);

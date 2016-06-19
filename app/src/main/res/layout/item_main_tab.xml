@@ -46,6 +46,16 @@
                 android:src="@drawable/ic_comment"
                 android:scaleType="centerInside"
                 android:layout_alignParentRight="true"/>
+
+            <zhulei.com.stone.widget.BageTextView
+                android:id="@+id/bage"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_alignRight="@id/iv_comment"
+                android:textSize="@dimen/font_tiny"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                android:text="11"/>
         </RelativeLayout>
 
         <TextView

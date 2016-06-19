@@ -82,8 +82,7 @@
 
         <activity
             android:name=".activity.CommentActivity"
-            android:label="@string/comment_list"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:label="@string/comment_list"/>
 
     </application>
 

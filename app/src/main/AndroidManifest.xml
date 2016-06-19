@@ -80,6 +80,11 @@
             android:name=".activity.BirthDaySettingActivity"
             android:label="@string/birthday_setting"/>
 
+        <activity
+            android:name=".activity.CommentActivity"
+            android:label="@string/comment_list"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+
     </application>
 
 </manifest>

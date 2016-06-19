@@ -40,10 +40,15 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
     private List<Message> mData;
 
     private int mOldPosition;
+    private Listener mListener;
 
     public TabMainAdapter(Context context, ArrayList<Message> data){
         this.mContext =context;
         this.mData = data;
+    }
+
+    public void setListener(Listener listener){
+        this.mListener = listener;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
 
     @Override
     public void onBindViewHolder(TabMainAdapter.TabViewHolder holder, int position) {
-        Message message = mData.get(position);
+        final Message message = mData.get(position);
         User user = message.getUser();
         String userHeader = user.getHeader();
         String userName = user.getUsername();
@@ -110,6 +115,15 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             mOldPosition = position;
         }
 
+        holder.mIvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    mListener.onCommentClicked(message);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -137,6 +151,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
         GridView mImages;
         @BindView(R.id.tv_create)
         TextView mCreate;
+        @BindView(R.id.iv_comment)
+        ImageView mIvComment;
 
         public TabViewHolder(View itemView) {
             super(itemView);
@@ -214,5 +230,9 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             }
 
         }
+    }
+
+    public interface Listener{
+        void onCommentClicked(Message message);
     }
 }

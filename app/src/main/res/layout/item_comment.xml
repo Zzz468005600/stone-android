@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    app:cardCornerRadius="5dp"
+    android:elevation="3dp"
+    app:cardMaxElevation="3dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <zhulei.com.stone.widget.CircleImageView
+                android:id="@+id/user_header"
+                android:layout_width="@dimen/size_thumbnail_small"
+                android:layout_height="@dimen/size_thumbnail_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_header"/>
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/font_text"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Stone"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/create_time"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_tiny"
+            android:textColor="@color/dark_beige"
+            android:text="2016-6-16"/>
+
+        <TextView
+            android:id="@+id/comment_content"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_normal"
+            android:textColor="@color/font_text"
+            android:text="111111111111111111111111111111111111111111111111111111111111111111111111111111111"/>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

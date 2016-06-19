@@ -10,6 +10,7 @@
     <string name="login_register">登陆/注册</string>
     <string name="paint">画板</string>
     <string name="birthday_setting">设置出生日期</string>
+    <string name="comment_list">评论列表</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

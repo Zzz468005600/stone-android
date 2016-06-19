@@ -39,6 +39,13 @@
                 android:layout_marginLeft="5dp"
                 android:layout_centerVertical="true"
                 tools:text = "shitou"/>
+            <ImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="@dimen/size_thumbnail_small"
+                android:layout_height="@dimen/size_thumbnail_small"
+                android:src="@drawable/ic_comment"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
         <TextView

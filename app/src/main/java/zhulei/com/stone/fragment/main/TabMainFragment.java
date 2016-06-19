@@ -1,5 +1,6 @@
 package zhulei.com.stone.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
+import zhulei.com.stone.activity.CommentActivity;
 import zhulei.com.stone.adapter.TabMainAdapter;
 import zhulei.com.stone.entity.Message;
 import zhulei.com.stone.event.Envents;
@@ -105,6 +107,7 @@ public class TabMainFragment extends Fragment{
             }
         });
         mTabMainAdapter = new TabMainAdapter(getContext(), mListData);
+        mTabMainAdapter.setListener(mListener);
         mListContent.setAdapter(mTabMainAdapter);
         if(!UserManager.instance().hasLogin()){
             mProgressBar.setVisibility(View.GONE);
@@ -114,6 +117,15 @@ public class TabMainFragment extends Fragment{
         }
         getListData(0 ,10);
     }
+
+    private TabMainAdapter.Listener mListener = new TabMainAdapter.Listener() {
+        @Override
+        public void onCommentClicked(Message message) {
+            Intent intent = new Intent(getContext(), CommentActivity.class);
+            intent.putExtra(CommentActivity.ARG_MESSAGE, message);
+            startActivity(intent);
+        }
+    };
 
     public static TabMainFragment newInstance(){
         TabMainFragment instance = new TabMainFragment();

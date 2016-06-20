@@ -170,6 +170,9 @@ public class CommentFragment extends BaseFragment {
 
     private void getListData(final int skip, int limit){
         isLoading = true;
+        if (skip == 0){
+            mPreviousTotal = 0;
+        }
         BmobQuery<Comment> query = new BmobQuery<Comment>();
         query.addWhereEqualTo("message", mCurMessage);
         query.include("user");
@@ -179,7 +182,6 @@ public class CommentFragment extends BaseFragment {
         query.findObjects(getContext(), new FindListener<Comment>() {
             @Override
             public void onSuccess(List<Comment> list) {
-                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     if (skip == 0){
                         mComments.clear();
@@ -199,7 +201,6 @@ public class CommentFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     if (mContentProgress.isShown()){

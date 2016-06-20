@@ -134,6 +134,9 @@ public class TabMainFragment extends Fragment{
 
     private void getListData(final int skip, int limit){
         isLoading = true;
+        if (skip == 0){
+            mPreviousTotal = 0;
+        }
         if (!UserManager.instance().hasLogin()){
             Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
             if (mListData.size() == 0){
@@ -153,7 +156,6 @@ public class TabMainFragment extends Fragment{
         query.findObjects(getContext(), new FindListener<Message>() {
             @Override
             public void onSuccess(List<Message> list) {
-                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);
@@ -179,7 +181,6 @@ public class TabMainFragment extends Fragment{
 
             @Override
             public void onError(int i, String s) {
-                isLoading = false;
                 if (getActivity() != null && isVisible()){
                     if (mListContainer.isRefreshing()){
                         mListContainer.setRefreshing(false);

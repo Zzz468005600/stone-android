@@ -1,6 +1,5 @@
 # Stone
-## 一.功能模块:
-### 1.登陆,注册
-### 2.修改头像
-### 3.发表文字和图片
-### 4.获取首页数据
+## just for practice
+## 1.RecyclerView与cardview
+## 2.CoordinatorLayout AppBarLayout CollapsingToolbarLayout NestedScrollView
+## 3.相关常用框架

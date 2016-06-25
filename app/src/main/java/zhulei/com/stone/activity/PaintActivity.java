@@ -2,6 +2,7 @@ package zhulei.com.stone.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,12 +18,15 @@ public class PaintActivity extends AppCompatActivity {
 
     @BindView(R.id.paint_view)
     PaintView mPaintView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paint);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

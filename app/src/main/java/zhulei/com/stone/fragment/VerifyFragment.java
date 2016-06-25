@@ -3,7 +3,7 @@ package zhulei.com.stone.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -146,15 +146,15 @@ public class VerifyFragment extends BaseFragment {
     }
 
     @Override
-    protected void initActionBar(ActionBar actionBar) {
-        super.initActionBar(actionBar);
+    protected void initToolBar(Toolbar toolbar) {
+        super.initToolBar(toolbar);
         if (mAction == RESET) {
-            actionBar.setTitle(R.string.reset_psw);
+            toolbar.setTitle(R.string.reset_psw);
             mVerifyNameLayout.setVisibility(View.GONE);
             mOldPswLayout.setVisibility(View.VISIBLE);
             mMobileLayout.setVisibility(View.GONE);
         } else {
-            actionBar.setTitle(R.string.register);
+            toolbar.setTitle(R.string.register);
             mVerifyNameLayout.setVisibility(View.VISIBLE);
             mOldPswLayout.setVisibility(View.GONE);
             mMobileLayout.setVisibility(View.VISIBLE);

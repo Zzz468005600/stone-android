@@ -24,11 +24,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +44,7 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/profile"
-            android:theme="@style/AppTheme.NoActionBar.Translucent"
+            android:theme="@style/AppTheme.NoActionBar.Main"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
@@ -58,12 +58,11 @@
 
         <activity
             android:name=".activity.ImageActivity"
-            android:theme="@style/AppTheme.Translucent"
+            android:theme="@style/AppTheme.NoActionBar.Translucent"
             android:label="@string/image"
             android:process=":picture"/>
 
         <activity
-            android:theme="@style/AppTheme.Translucent"
             android:name=".activity.CircleActivity"
             android:label="@string/circle"/>
 

@@ -1,7 +1,7 @@
 package zhulei.com.stone.fragment;
 
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -89,9 +89,8 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
-    protected void initActionBar(ActionBar actionBar) {
-        super.initActionBar(actionBar);
-        actionBar.setTitle(R.string.login);
+    protected void initToolBar(Toolbar toolbar) {
+        super.initToolBar(toolbar);
+        toolbar.setTitle(R.string.login);
     }
-
 }

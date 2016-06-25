@@ -3,7 +3,6 @@ package zhulei.com.stone.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ public abstract class AppFragment extends Fragment {
     protected void releaseView(){
 
     };
-    protected abstract void initActionBar(ActionBar actionBar);
 
     protected BaseActivity getHoldingActivity(){
         if (getActivity() instanceof BaseActivity){
@@ -43,15 +41,6 @@ public abstract class AppFragment extends Fragment {
         View view = inflater.inflate(getLayoutId(), container, false);
         initView(view, savedInstanceState);
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        ActionBar actionBar = getHoldingActivity().getSupportActionBar();
-        if (actionBar != null){
-            initActionBar(actionBar);
-        }
     }
 
     @Override

@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+
+        <item name="android:actionBarSize">@dimen/actionbar_height</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:editTextColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,11 +22,12 @@
     </style>
 
     <style name="AppTheme.NoActionBar.Translucent">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@drawable/translucent</item>
     </style>
 
-    <style name="AppTheme.Translucent" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/translucent</item>
+    <style name="title_text_style" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -4,9 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/divider">
 
+    <include layout="@layout/toolbar_layout"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/actionbar_height"
         android:layout_marginBottom="45dp">
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/list_container"

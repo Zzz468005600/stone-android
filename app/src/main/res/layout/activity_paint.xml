@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_layout"/>
+
     <zhulei.com.stone.widget.PaintView
         android:id="@+id/paint_view"
         android:layout_width="match_parent"

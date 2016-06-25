@@ -1,11 +1,13 @@
 package zhulei.com.stone.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,12 @@ public class ImageFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_image;
+    }
+
+    @Override
+    protected void initToolBar(Toolbar toolbar) {
+        super.initToolBar(toolbar);
+        toolbar.setBackgroundColor(Color.BLACK);
     }
 
     @Override

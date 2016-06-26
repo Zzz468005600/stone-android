@@ -120,31 +120,25 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             holder.mImages.setVisibility(View.GONE);
         }
 
-        setCommentCount(message.getObjectId(), holder.mBageTextView);
-
+        holder.mBageTextView.setVisibility(View.GONE);
         if (position > mOldPosition){
             final BmobQuery<Comment> query = new BmobQuery<>();
             query.addWhereEqualTo("message", message);
             query.setLimit(10);
             query.setSkip(0);
-            holder.mBageTextView.post(new Runnable() {
+            query.findObjects(mContext, new FindListener<Comment>() {
                 @Override
-                public void run() {
-                    query.findObjects(mContext, new FindListener<Comment>() {
-                        @Override
-                        public void onSuccess(List<Comment> list) {
-                            if (mContext != null && holder.mBageTextView != null){
-                                if (list != null){
-                                    mCommentCount.put(message.getObjectId(), list.size());
-                                    setCommentCount(message.getObjectId(), holder.mBageTextView);
-                                }
-                            }
+                public void onSuccess(List<Comment> list) {
+                    if (mContext != null && holder.mBageTextView != null){
+                        if (list != null){
+                            mCommentCount.put(message.getObjectId(), list.size());
+                            setCommentCount(message.getObjectId(), holder.mBageTextView);
                         }
+                    }
+                }
 
-                        @Override
-                        public void onError(int i, String s) {
-                        }
-                    });
+                @Override
+                public void onError(int i, String s) {
                 }
             });
 
@@ -152,6 +146,8 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             holder.mCardItem.setAnimation(set);
             set.start();
             mOldPosition = position;
+        }else {
+            setCommentCount(message.getObjectId(), holder.mBageTextView);
         }
 
         holder.mIvComment.setOnClickListener(new View.OnClickListener() {

@@ -172,6 +172,7 @@ public class TabMainFragment extends Fragment{
                         mEmpty.setVisibility(View.GONE);
                         if (skip == 0){
                             mListData.clear();
+                            mTabMainAdapter.onRefresh();
                         }
                         mListData.addAll(list);
                         mTabMainAdapter.notifyDataSetChanged();

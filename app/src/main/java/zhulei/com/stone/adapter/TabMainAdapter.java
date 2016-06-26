@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,17 +44,23 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
 
     private Context mContext;
     private List<Message> mData;
+    private Map<String, Integer> mCommentCount;
 
-    private int mOldPosition;
+    private int mOldPosition = -1;
     private Listener mListener;
 
     public TabMainAdapter(Context context, ArrayList<Message> data){
         this.mContext =context;
         this.mData = data;
+        mCommentCount = new HashMap<>();
     }
 
     public void setListener(Listener listener){
         this.mListener = listener;
+    }
+
+    public void onRefresh(){
+        mOldPosition = -1;
     }
 
     @Override
@@ -62,7 +70,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
     }
 
     @Override
-    public void onBindViewHolder(final TabMainAdapter.TabViewHolder holder, int position) {
+    public void onBindViewHolder(final TabMainAdapter.TabViewHolder holder, final int position) {
         final Message message = mData.get(position);
         User user = message.getUser();
         String userHeader = user.getHeader();
@@ -112,7 +120,34 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             holder.mImages.setVisibility(View.GONE);
         }
 
+        setCommentCount(message.getObjectId(), holder.mBageTextView);
+
         if (position > mOldPosition){
+            final BmobQuery<Comment> query = new BmobQuery<>();
+            query.addWhereEqualTo("message", message);
+            query.setLimit(10);
+            query.setSkip(0);
+            holder.mBageTextView.post(new Runnable() {
+                @Override
+                public void run() {
+                    query.findObjects(mContext, new FindListener<Comment>() {
+                        @Override
+                        public void onSuccess(List<Comment> list) {
+                            if (mContext != null && holder.mBageTextView != null){
+                                if (list != null){
+                                    mCommentCount.put(message.getObjectId(), list.size());
+                                    setCommentCount(message.getObjectId(), holder.mBageTextView);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onError(int i, String s) {
+                        }
+                    });
+                }
+            });
+
             AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(mContext, R.anim.card_item);
             holder.mCardItem.setAnimation(set);
             set.start();
@@ -128,33 +163,23 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             }
         });
 
-        holder.mBageTextView.setVisibility(View.GONE);
-        BmobQuery<Comment> query = new BmobQuery<>();
-        query.addWhereEqualTo("message", message);
-        query.setLimit(10);
-        query.setSkip(0);
-        query.findObjects(mContext, new FindListener<Comment>() {
-            @Override
-            public void onSuccess(List<Comment> list) {
-                if (mContext != null && holder.mBageTextView != null){
-                    if (list != null){
-                        if (list.size() == 0){
-                            holder.mBageTextView.setVisibility(View.GONE);
-                        }else if (list.size() < 10){
-                            holder.mBageTextView.setVisibility(View.VISIBLE);
-                            holder.mBageTextView.setText(list.size() + "");
-                        }else {
-                            holder.mBageTextView.setVisibility(View.VISIBLE);
-                            holder.mBageTextView.setText("...");
-                        }
-                    }
-                }
-            }
+    }
 
-            @Override
-            public void onError(int i, String s) {
+    private void setCommentCount(String messageId, TextView commentCount){
+        if (mCommentCount.get(messageId) != null){
+            int count = mCommentCount.get(messageId);
+            if (count == 0){
+                commentCount.setVisibility(View.GONE);
+            }else if (count < 10){
+                commentCount.setVisibility(View.VISIBLE);
+                commentCount.setText(count + "");
+            }else {
+                commentCount.setVisibility(View.VISIBLE);
+                commentCount.setText("...");
             }
-        });
+        }else {
+            commentCount.setVisibility(View.GONE);
+        }
     }
 
     @Override

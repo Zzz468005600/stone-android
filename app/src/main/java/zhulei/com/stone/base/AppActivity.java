@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 
 /**
  * Created by zhulei on 16/5/27.
@@ -30,7 +29,7 @@ public abstract class AppActivity extends AppCompatActivity{
         if (getIntent() != null){
             handleIntent(getIntent());
         }
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //设置contentView
         setContentView(getContentViewId());
         //添加栈底的第一个fragment

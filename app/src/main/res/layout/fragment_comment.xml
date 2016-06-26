@@ -40,28 +40,32 @@
             style="?android:attr/progressBarStyleLarge"/>
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:background="@android:color/white"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@android:color/white">
 
-        <EditText
-            android:id="@+id/comment_content"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="@dimen/font_normal"
-            android:textColor="@color/font_text"/>
+            <EditText
+                android:id="@+id/comment_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="@dimen/font_normal"
+                android:textColor="@color/font_text"/>
 
-        <ImageView
-            android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_menu_send"
-            android:scaleType="centerInside"/>
+            <ImageView
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu_send"
+                android:scaleType="centerInside"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

@@ -81,7 +81,8 @@
 
         <activity
             android:name=".activity.CommentActivity"
-            android:label="@string/comment_list"/>
+            android:label="@string/comment_list"
+            android:windowSoftInputMode="stateHidden"/>
 
         <activity android:name=".activity.PersonalPostActivity"
             android:label="@string/personal_post"/>

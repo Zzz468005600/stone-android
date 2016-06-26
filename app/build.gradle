@@ -11,8 +11,8 @@ android {
         applicationId "zhulei.com.stone"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 100003
-        versionName "1.0.3"
+        versionCode 100004
+        versionName "1.0.4"
     }
     buildTypes {
         release {

@@ -1,49 +1,33 @@
-package zhulei.com.stone.fragment.main;
+package zhulei.com.stone.fragment.menu;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
+import zhulei.com.stone.R;
 import zhulei.com.stone.entity.Message;
-import zhulei.com.stone.event.Envents;
 import zhulei.com.stone.fragment.base.BaseListFragment;
 import zhulei.com.stone.manager.UserManager;
 
 /**
- * Created by zhulei on 16/6/6.
+ * Created by zhulei on 16/6/26.
  */
-public class TabMainFragment extends BaseListFragment{
+public class PersonalPostFragment extends BaseListFragment {
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    public static TabMainFragment newInstance(){
-        TabMainFragment instance = new TabMainFragment();
+    public static PersonalPostFragment newInstance(){
+        PersonalPostFragment instance = new PersonalPostFragment();
         return instance;
     }
 
     @Override
     protected void initToolBar(Toolbar toolbar) {
         super.initToolBar(toolbar);
-        toolbar.setVisibility(View.GONE);
+        toolbar.setTitle(R.string.personal_post);
     }
 
     @Override
@@ -65,6 +49,7 @@ public class TabMainFragment extends BaseListFragment{
         }
         BmobQuery<Message> query = new BmobQuery<>();
         query.include("user");
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser(getContext()));
         query.setLimit(limit);
         query.setSkip(skip);
         query.order("-createdAt");
@@ -113,10 +98,5 @@ public class TabMainFragment extends BaseListFragment{
                 }
             }
         });
-    }
-
-    @Subscribe
-    public void onEvent(Envents.LoginEvent event){
-        getListData(0, 10);
     }
 }

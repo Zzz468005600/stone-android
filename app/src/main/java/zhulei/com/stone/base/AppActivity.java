@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
@@ -17,7 +18,7 @@ public abstract class AppActivity extends AppCompatActivity{
     protected void handleIntent(Intent intent){
     };
     protected abstract int getContentViewId();
-    protected abstract BaseFragment getFirstFragment();
+    protected abstract Fragment getFirstFragment();
     protected abstract int getFragmentContainerId();
 
     @Override
@@ -42,7 +43,7 @@ public abstract class AppActivity extends AppCompatActivity{
         }
     }
 
-    public void pushFragment(BaseFragment fragment){
+    public void pushFragment(Fragment fragment){
         if (fragment != null){
             getSupportFragmentManager().beginTransaction()
                     .replace(getFragmentContainerId(), fragment)

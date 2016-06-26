@@ -81,8 +81,10 @@
 
         <activity
             android:name=".activity.CommentActivity"
-            android:label="@string/comment_list"
-            android:windowSoftInputMode="adjustPan"/>
+            android:label="@string/comment_list"/>
+
+        <activity android:name=".activity.PersonalPostActivity"
+            android:label="@string/personal_post"/>
 
     </application>
 

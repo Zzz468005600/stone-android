@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import zhulei.com.stone.fragment.main.TabMainFragment;
+import zhulei.com.stone.ui.fragment.main.TabMainFragment;
 
 /**
  * Created by zhulei on 16/6/6.

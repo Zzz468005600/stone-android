@@ -23,7 +23,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <zhulei.com.stone.widget.CircleImageView
+            <zhulei.com.stone.ui.widget.CircleImageView
                 android:id="@+id/user_header"
                 android:layout_width="@dimen/size_thumbnail_small"
                 android:layout_height="@dimen/size_thumbnail_small"
@@ -47,7 +47,7 @@
                 android:scaleType="centerInside"
                 android:layout_alignParentRight="true"/>
 
-            <zhulei.com.stone.widget.BageTextView
+            <zhulei.com.stone.ui.widget.BageTextView
                 android:id="@+id/bage"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
@@ -76,14 +76,14 @@
             android:layout_marginTop="8dp"
             tools:text = "1111111111111111111"/>
 
-        <zhulei.com.stone.widget.NoScrollGridView
+        <zhulei.com.stone.ui.widget.NoScrollGridView
             android:id="@+id/gv_images"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:numColumns="3">
 
-        </zhulei.com.stone.widget.NoScrollGridView>
+        </zhulei.com.stone.ui.widget.NoScrollGridView>
 
     </LinearLayout>
 

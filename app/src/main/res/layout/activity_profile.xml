@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp">
-            <zhulei.com.stone.widget.CircleImageView
+            <zhulei.com.stone.ui.widget.CircleImageView
                 android:id="@+id/user_header_small"
                 android:layout_width="@dimen/header_height"
                 android:layout_height="@dimen/header_with"
@@ -96,7 +96,7 @@
                     android:src="@drawable/ic_action_enter"/>
             </LinearLayout>
 
-            <zhulei.com.stone.widget.WaterView
+            <zhulei.com.stone.ui.widget.WaterView
                 android:id="@+id/water_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

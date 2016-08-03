@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import zhulei.com.stone.R;
-import zhulei.com.stone.entity.Comment;
-import zhulei.com.stone.entity.User;
+import zhulei.com.stone.data.entity.Comment;
+import zhulei.com.stone.data.entity.User;
 
 /**
  * Created by zhulei on 16/6/19.
@@ -26,7 +26,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private Context mContext;
     private ArrayList<Comment> mComments;
 
-    public CommentAdapter(Context context, ArrayList<Comment> comments){
+    public CommentAdapter(Context context, ArrayList<Comment> comments) {
         this.mContext = context;
         this.mComments = comments;
     }
@@ -41,7 +41,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void onBindViewHolder(CommentViewHolder holder, int position) {
         Comment comment = mComments.get(position);
         User user = comment.getUser();
-        if (user.getHeader() != null){
+        if (user.getHeader() != null) {
             Picasso.with(mContext)
                     .load(user.getHeader())
                     .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
@@ -51,13 +51,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     .centerCrop()
                     .into(holder.mUserHeader);
         }
-        if (user.getUsername() != null){
+        if (user.getUsername() != null) {
             holder.mUserName.setText(user.getUsername());
         }
-        if (comment.getCreatedAt() != null){
+        if (comment.getCreatedAt() != null) {
             holder.mCreateTime.setText(comment.getCreatedAt());
         }
-        if (comment.getContent() != null){
+        if (comment.getContent() != null) {
             holder.mCommentContent.setText(comment.getContent());
         }
     }
@@ -67,7 +67,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         return mComments.size();
     }
 
-    class CommentViewHolder extends RecyclerView.ViewHolder{
+    class CommentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.user_header)
         ImageView mUserHeader;

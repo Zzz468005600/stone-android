@@ -28,12 +28,12 @@ import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
-import zhulei.com.stone.activity.ImageActivity;
-import zhulei.com.stone.entity.Comment;
-import zhulei.com.stone.entity.Message;
-import zhulei.com.stone.entity.User;
+import zhulei.com.stone.data.entity.Comment;
+import zhulei.com.stone.data.entity.Message;
+import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.ui.activity.ImageActivity;
+import zhulei.com.stone.ui.widget.BageTextView;
 import zhulei.com.stone.util.ImageUtil;
-import zhulei.com.stone.widget.BageTextView;
 
 /**
  * Created by zhulei on 16/6/6.

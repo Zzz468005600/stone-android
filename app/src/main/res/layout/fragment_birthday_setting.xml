@@ -37,7 +37,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_person"/>
 
-    <zhulei.com.stone.widget.BirthdaySettingView
+    <zhulei.com.stone.ui.widget.BirthdaySettingView
         android:id="@+id/bs_v"
         android:layout_width="match_parent"
         android:layout_height="150dp"

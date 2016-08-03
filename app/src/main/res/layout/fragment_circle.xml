@@ -7,7 +7,7 @@
 
     <include layout="@layout/toolbar_layout"/>
 
-    <zhulei.com.stone.widget.CircleView
+    <zhulei.com.stone.ui.widget.CircleView
         android:id="@+id/nav_circle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

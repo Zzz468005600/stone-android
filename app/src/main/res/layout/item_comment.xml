@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <zhulei.com.stone.widget.CircleImageView
+            <zhulei.com.stone.ui.widget.CircleImageView
                 android:id="@+id/user_header"
                 android:layout_width="@dimen/size_thumbnail_small"
                 android:layout_height="@dimen/size_thumbnail_small"

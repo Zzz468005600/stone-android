@@ -19,14 +19,14 @@
     <meta-data android:value="Channel ID" android:name="BMOB_CHANNEL"/>
 
     <application
-        android:name=".base.BaseApplication"
+        android:name=".others.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app"
             android:theme="@style/AppTheme.NoActionBar.Main">
             <intent-filter>
@@ -37,18 +37,18 @@
         </activity>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:label="@string/login"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name=".ui.activity.ProfileActivity"
             android:label="@string/profile"
             android:theme="@style/AppTheme.NoActionBar.Main"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-            android:name=".activity.PostActivity"
+            android:name=".ui.activity.PostActivity"
             android:label="@string/post"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
@@ -57,17 +57,17 @@
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
 
         <activity
-            android:name=".activity.ImageActivity"
+            android:name=".ui.activity.ImageActivity"
             android:theme="@style/AppTheme.NoActionBar.Translucent"
             android:label="@string/image"
             android:process=":picture"/>
 
         <activity
-            android:name=".activity.CircleActivity"
+            android:name=".ui.activity.CircleActivity"
             android:label="@string/circle"/>
 
         <activity
-            android:name=".activity.PaintActivity"
+            android:name=".ui.activity.PaintActivity"
             android:label="@string/paint"/>
 
         <activity
@@ -76,15 +76,15 @@
         </activity>
 
         <activity
-            android:name=".activity.BirthDaySettingActivity"
+            android:name=".ui.activity.BirthDaySettingActivity"
             android:label="@string/birthday_setting"/>
 
         <activity
-            android:name=".activity.CommentActivity"
+            android:name=".ui.activity.CommentActivity"
             android:label="@string/comment_list"
             android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name=".activity.PersonalPostActivity"
+        <activity android:name=".ui.activity.PersonalPostActivity"
             android:label="@string/personal_post"/>
 
     </application>

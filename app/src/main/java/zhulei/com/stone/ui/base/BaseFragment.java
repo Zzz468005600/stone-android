@@ -21,12 +21,12 @@ public abstract class BaseFragment extends AppFragment {
 
     protected MaterialDialog mLoadingDialog;
 
-    protected void initToolBar(Toolbar toolbar){
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+    protected void initToolBar(Toolbar toolbar) {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,13 +42,17 @@ public abstract class BaseFragment extends AppFragment {
         initToolBar(mToolBar);
     }
 
-    protected void showProgress(String content){
+    protected void showProgress(String content) {
         if (getActivity() != null && isVisible()) {
-            mLoadingDialog = new MaterialDialog.Builder(getActivity())
-                    .content(content)
-                    .progress(true, 0)
-                    .canceledOnTouchOutside(false)
-                    .show();
+            hideProgress();
+            if (mLoadingDialog == null) {
+                mLoadingDialog = new MaterialDialog.Builder(getActivity())
+                        .content(content)
+                        .progress(true, 0)
+                        .canceledOnTouchOutside(false)
+                        .build();
+            }
+            mLoadingDialog.show();
         }
     }
 
@@ -56,9 +60,9 @@ public abstract class BaseFragment extends AppFragment {
         showProgress(getString(R.string.loading));
     }
 
-    protected void hideProgress(){
-        if (getActivity() != null && isVisible()){
-            if (mLoadingDialog != null && mLoadingDialog.isShowing()){
+    protected void hideProgress() {
+        if (getActivity() != null && isVisible()) {
+            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
                 mLoadingDialog.dismiss();
             }
         }

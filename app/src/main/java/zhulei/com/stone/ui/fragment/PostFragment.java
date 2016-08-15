@@ -36,6 +36,8 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.data.entity.Message;
 import zhulei.com.stone.data.entity.Photo;
@@ -43,6 +45,7 @@ import zhulei.com.stone.data.entity.User;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.ui.base.BaseFragment;
 import zhulei.com.stone.util.ImageUtil;
+import zhulei.com.stone.util.UiUtil;
 
 /**
  * Created by zhulei on 16/5/29.
@@ -59,6 +62,7 @@ public class PostFragment extends BaseFragment {
 
     private ArrayList<Photo> mPhotos;
     private PhotoAdapter mPhotoAdapter;
+    private boolean posting;
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +98,7 @@ public class PostFragment extends BaseFragment {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
                     PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
-            }else {
+            } else {
                 openImageSelector();
             }
         }
@@ -109,7 +113,7 @@ public class PostFragment extends BaseFragment {
         }
     };
 
-    private void openImageSelector(){
+    private void openImageSelector() {
         MultiImageSelector.create(getContext())
                 .showCamera(true)
                 .multi()
@@ -119,8 +123,8 @@ public class PostFragment extends BaseFragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_STORAGE){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_READ_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openImageSelector();
                 return;
             }
@@ -156,7 +160,9 @@ public class PostFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_post) {
-            postMessage();
+            if (!posting) {
+                postMessage();
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -171,8 +177,11 @@ public class PostFragment extends BaseFragment {
             Toast.makeText(getContext(), "请输入内容", Toast.LENGTH_SHORT).show();
             return;
         }
+        posting = true;
         final String[] images;
         if (mPhotos.size() > 1) {
+            UiUtil.hideIme(mEtText, getActivity());
+            showProgress("正在发表...");
             if (mPhotos.get(0).isEmpty()) {
                 images = new String[mPhotos.size() - 1];
             } else {
@@ -188,30 +197,69 @@ public class PostFragment extends BaseFragment {
                     }
                 }
             }
-            showProgress("正在发表...");
-            BmobFile.uploadBatch(getContext(), images, new UploadBatchListener() {
-                @Override
-                public void onSuccess(List<BmobFile> list, List<String> urls) {
-                    if (urls.size() == images.length) {
-                        sendMessage(urls);
-                    }
-                }
+            for (int i = 0; i < images.length; i++) {
+                Luban.get(getActivity())
+                        .load(new File(images[i]))
+                        .putGear(Luban.THIRD_GEAR)
+                        .setCompressListener(new OnCompressListener() {
+                            int index = 0;
 
-                @Override
-                public void onProgress(int i, int i1, int i2, int i3) {
-                }
+                            @Override
+                            public void onStart() {
+                            }
 
-                @Override
-                public void onError(int i, String s) {
-                    if (getActivity() != null && isVisible()) {
-                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                            @Override
+                            public void onSuccess(File file) {
+                                if (getActivity() != null && isVisible()) {
+                                    images[index] = file.getAbsolutePath();
+                                    index++;
+                                    if (index == images.length) {
+                                        uploadImages(images);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                if (getActivity() != null && isVisible()) {
+                                    posting = false;
+                                    Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .launch();
+            }
+
         } else {
             showProgress("正在发表...");
             sendMessage(null);
         }
+    }
+
+    private void uploadImages(final String[] images) {
+        final BmobFile bmobFile = new BmobFile();
+        bmobFile.uploadBatch(getActivity(), images, new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> list, List<String> list1) {
+                if (getActivity() != null && isVisible()) {
+                    if (list1 != null && list1.size() == images.length) {
+                        sendMessage(list1);
+                    }
+                }
+            }
+
+            @Override
+            public void onProgress(int i, int i1, int i2, int i3) {
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                if (getActivity() != null && isVisible()) {
+                    posting = false;
+                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void sendMessage(List<String> images) {
@@ -229,6 +277,7 @@ public class PostFragment extends BaseFragment {
             @Override
             public void onSuccess() {
                 if (getActivity() != null && isVisible()) {
+                    posting = false;
                     hideProgress();
                     Toast.makeText(getContext(), "发表成功", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
@@ -238,6 +287,7 @@ public class PostFragment extends BaseFragment {
             @Override
             public void onFailure(int i, String s) {
                 if (getActivity() != null && isVisible()) {
+                    posting = true;
                     hideProgress();
                     Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 }
@@ -257,7 +307,7 @@ public class PostFragment extends BaseFragment {
             mContext = fragment.getContext();
         }
 
-        public void setOnItemClickListener(OnItemClickListener listener){
+        public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
 
@@ -290,7 +340,7 @@ public class PostFragment extends BaseFragment {
             btnClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onCloseBtnClicked(position);
                     }
                 }
@@ -298,7 +348,7 @@ public class PostFragment extends BaseFragment {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onAddBtnClicked(position);
                     }
                 }
@@ -322,8 +372,9 @@ public class PostFragment extends BaseFragment {
             return itemView;
         }
 
-        public interface OnItemClickListener{
+        public interface OnItemClickListener {
             void onAddBtnClicked(int position);
+
             void onCloseBtnClicked(int position);
         }
 

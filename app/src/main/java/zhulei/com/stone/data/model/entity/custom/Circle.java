@@ -1,4 +1,4 @@
-package zhulei.com.stone.data.entity.custom;
+package zhulei.com.stone.data.model.entity.custom;
 
 /**
  * Created by zhulei on 16/6/14.

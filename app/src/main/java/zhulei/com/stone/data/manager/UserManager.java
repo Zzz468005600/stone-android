@@ -2,7 +2,7 @@ package zhulei.com.stone.data.manager;
 
 import com.orhanobut.hawk.Hawk;
 
-import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.data.model.entity.User;
 
 /**
  * Created by zhulei on 16/5/28.

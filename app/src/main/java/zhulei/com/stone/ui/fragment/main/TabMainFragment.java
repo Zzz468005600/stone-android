@@ -13,7 +13,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import zhulei.com.stone.data.entity.Message;
+import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.others.event.Envents;
 import zhulei.com.stone.ui.fragment.base.BaseListFragment;

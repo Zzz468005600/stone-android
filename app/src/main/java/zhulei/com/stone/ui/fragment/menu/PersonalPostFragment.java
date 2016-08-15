@@ -10,7 +10,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.entity.Message;
+import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.ui.fragment.base.BaseListFragment;
 

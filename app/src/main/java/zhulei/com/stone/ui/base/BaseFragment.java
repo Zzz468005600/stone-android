@@ -9,17 +9,21 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import zhulei.com.stone.R;
+import zhulei.com.stone.presenter.base.IBasePresenter;
 
 /**
  * Created by zhulei on 16/5/27.
  */
-public abstract class BaseFragment extends AppFragment {
+public abstract class BaseFragment<P extends IBasePresenter> extends AppFragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
 
     protected MaterialDialog mLoadingDialog;
+    protected IBasePresenter mPresenter;
+    private Unbinder mUnBinder;
 
     protected void initToolBar(Toolbar toolbar) {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -38,8 +42,13 @@ public abstract class BaseFragment extends AppFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        ButterKnife.bind(this, view);
+        initPresenter();
+        mUnBinder =  ButterKnife.bind(this, view);
         initToolBar(mToolBar);
+    }
+
+    protected P initPresenter(){
+        return null;
     }
 
     protected void showProgress(String content) {
@@ -68,4 +77,17 @@ public abstract class BaseFragment extends AppFragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null){
+            mPresenter.onDestroy();
+        }
+    }
 }

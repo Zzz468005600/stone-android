@@ -32,7 +32,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.data.model.entity.User;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.others.event.Envents;
 import zhulei.com.stone.ui.widget.WaterView;

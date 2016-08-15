@@ -24,9 +24,9 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.adapter.CommentAdapter;
-import zhulei.com.stone.data.entity.Comment;
-import zhulei.com.stone.data.entity.Message;
-import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.data.model.entity.Comment;
+import zhulei.com.stone.data.model.entity.Message;
+import zhulei.com.stone.data.model.entity.User;
 import zhulei.com.stone.ui.base.BaseFragment;
 
 /**

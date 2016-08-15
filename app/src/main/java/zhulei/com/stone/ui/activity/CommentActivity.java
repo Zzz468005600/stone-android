@@ -3,7 +3,7 @@ package zhulei.com.stone.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import zhulei.com.stone.data.entity.Message;
+import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.ui.base.BaseActivity;
 import zhulei.com.stone.ui.base.BaseFragment;
 import zhulei.com.stone.ui.fragment.CommentFragment;

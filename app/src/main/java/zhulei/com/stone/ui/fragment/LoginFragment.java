@@ -18,7 +18,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.data.model.entity.User;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.others.event.Envents;
 import zhulei.com.stone.ui.base.BaseFragment;

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.entity.Comment;
-import zhulei.com.stone.data.entity.User;
+import zhulei.com.stone.data.model.entity.Comment;
+import zhulei.com.stone.data.model.entity.User;
 
 /**
  * Created by zhulei on 16/6/19.

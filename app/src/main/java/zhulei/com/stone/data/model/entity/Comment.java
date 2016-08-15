@@ -1,4 +1,4 @@
-package zhulei.com.stone.data.entity;
+package zhulei.com.stone.data.model.entity;
 
 import cn.bmob.v3.BmobObject;
 

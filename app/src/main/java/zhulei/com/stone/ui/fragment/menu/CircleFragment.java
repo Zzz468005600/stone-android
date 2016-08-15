@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 import butterknife.BindView;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.entity.custom.Circle;
+import zhulei.com.stone.data.model.entity.custom.Circle;
 import zhulei.com.stone.ui.base.BaseFragment;
 import zhulei.com.stone.ui.widget.CircleView;
 

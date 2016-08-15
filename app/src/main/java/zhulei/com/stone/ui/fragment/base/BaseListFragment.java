@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import zhulei.com.stone.R;
 import zhulei.com.stone.adapter.TabMainAdapter;
-import zhulei.com.stone.data.entity.Message;
+import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.ui.activity.CommentActivity;
 

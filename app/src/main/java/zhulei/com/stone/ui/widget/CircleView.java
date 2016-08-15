@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 
-import zhulei.com.stone.data.entity.custom.Circle;
+import zhulei.com.stone.data.model.entity.custom.Circle;
 
 /**
  * Created by zhulei on 16/6/14.

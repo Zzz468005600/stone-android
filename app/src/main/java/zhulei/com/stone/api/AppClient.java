@@ -62,4 +62,12 @@ public class AppClient {
         return mRetrofit;
     }
 
+    public interface ApiCallback<T> {
+
+        void onSuccess(T result);
+
+        void onFail(String message);
+
+    }
+
 }

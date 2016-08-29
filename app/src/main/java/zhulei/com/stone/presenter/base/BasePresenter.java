@@ -8,8 +8,8 @@ import zhulei.com.stone.ui.base.IBaseView;
  */
 public class BasePresenter<V extends IBaseView, M extends BaseModel> {
 
-    protected IBaseView mView;
-    protected BaseModel mModel;
+    protected V mView;
+    protected M mModel;
 
 
     public BasePresenter(V view, M model){

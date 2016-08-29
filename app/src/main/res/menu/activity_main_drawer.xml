@@ -7,9 +7,9 @@
             android:icon="@drawable/ic_menu_circle"
             android:title="@string/nav_circle" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_test"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/paint" />
+            android:title="@string/test" />
         <item
             android:id="@+id/personal_post"
             android:icon="@drawable/ic_menu_slideshow"

@@ -89,6 +89,9 @@
         <activity android:name=".ui.activity.PersonalPostActivity"
             android:label="@string/personal_post"/>
 
+        <activity android:name=".ui.activity.TestRetrofitActivity"
+            android:label="测试"/>
+
     </application>
 
 </manifest>

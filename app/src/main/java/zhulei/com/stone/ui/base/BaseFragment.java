@@ -22,7 +22,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AppFragment
     Toolbar mToolBar;
 
     protected MaterialDialog mLoadingDialog;
-    protected IBasePresenter mPresenter;
+    protected P mPresenter;
     private Unbinder mUnBinder;
 
     protected void initToolBar(Toolbar toolbar) {
@@ -42,7 +42,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AppFragment
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initPresenter();
+        mPresenter = initPresenter();
         mUnBinder =  ButterKnife.bind(this, view);
         initToolBar(mToolBar);
     }
@@ -89,5 +89,13 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AppFragment
         if (mPresenter != null){
             mPresenter.onDestroy();
         }
+    }
+
+    public void showLoading(String message) {
+        showProgress(message);
+    }
+
+    public void hideLoading() {
+        hideProgress();
     }
 }

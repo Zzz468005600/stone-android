@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.manager.UserManager;
@@ -35,7 +36,7 @@ public class TabMainFragment extends BaseListFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public static TabMainFragment newInstance(){
+    public static TabMainFragment newInstance() {
         TabMainFragment instance = new TabMainFragment();
         return instance;
     }
@@ -47,18 +48,18 @@ public class TabMainFragment extends BaseListFragment {
     }
 
     @Override
-    public void getListData(final int skip, int limit){
+    public void getListData(final int skip, int limit) {
         isLoading = true;
-        if (skip == 0){
+        if (skip == 0) {
             mPreviousTotal = 0;
         }
-        if (!UserManager.instance().hasLogin()){
+        if (!UserManager.instance().hasLogin()) {
             Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
-            if (mListData.size() == 0){
+            if (mListData.size() == 0) {
                 mListContent.setVisibility(View.GONE);
                 mEmpty.setVisibility(View.VISIBLE);
             }
-            if (mListContainer.isRefreshing()){
+            if (mListContainer.isRefreshing()) {
                 mListContainer.setRefreshing(false);
             }
             return;
@@ -68,55 +69,52 @@ public class TabMainFragment extends BaseListFragment {
         query.setLimit(limit);
         query.setSkip(skip);
         query.order("-createdAt");
-        query.findObjects(getContext(), new FindListener<Message>() {
+        query.findObjects(new FindListener<Message>() {
             @Override
-            public void onSuccess(List<Message> list) {
-                if (getActivity() != null && isVisible()){
-                    if (mListContainer.isRefreshing()){
-                        mListContainer.setRefreshing(false);
-                    }
-                    if (mProgressBar.getVisibility() == View.VISIBLE){
-                        mProgressBar.hide();
-                        mProgressBar.setVisibility(View.GONE);
-                    }
-                    if (skip == 0 && list.isEmpty()){
-                        mListContent.setVisibility(View.GONE);
-                        mEmpty.setVisibility(View.VISIBLE);
-                    }else {
-                        mListContent.setVisibility(View.VISIBLE);
-                        mEmpty.setVisibility(View.GONE);
-                        if (skip == 0){
-                            mListData.clear();
-                            mTabMainAdapter.onRefresh();
+            public void done(List<Message> list, BmobException e) {
+                if (getActivity() != null && isVisible()) {
+                    if (e == null) {
+                        if (mListContainer.isRefreshing()) {
+                            mListContainer.setRefreshing(false);
                         }
-                        mListData.addAll(list);
-                        mTabMainAdapter.notifyDataSetChanged();
+                        if (mProgressBar.getVisibility() == View.VISIBLE) {
+                            mProgressBar.hide();
+                            mProgressBar.setVisibility(View.GONE);
+                        }
+                        if (skip == 0 && list.isEmpty()) {
+                            mListContent.setVisibility(View.GONE);
+                            mEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            mListContent.setVisibility(View.VISIBLE);
+                            mEmpty.setVisibility(View.GONE);
+                            if (skip == 0) {
+                                mListData.clear();
+                                mTabMainAdapter.onRefresh();
+                            }
+                            mListData.addAll(list);
+                            mTabMainAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        if (mListContainer.isRefreshing()) {
+                            mListContainer.setRefreshing(false);
+                        }
+                        if (mProgressBar.getVisibility() == View.VISIBLE) {
+                            mProgressBar.hide();
+                            mProgressBar.setVisibility(View.GONE);
+                        }
+                        if (mListData.isEmpty()) {
+                            mListContent.setVisibility(View.GONE);
+                            mEmpty.setVisibility(View.VISIBLE);
+                        }
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                if (getActivity() != null && isVisible()){
-                    if (mListContainer.isRefreshing()){
-                        mListContainer.setRefreshing(false);
-                    }
-                    if (mProgressBar.getVisibility() == View.VISIBLE){
-                        mProgressBar.hide();
-                        mProgressBar.setVisibility(View.GONE);
-                    }
-                    if (mListData.isEmpty()){
-                        mListContent.setVisibility(View.GONE);
-                        mEmpty.setVisibility(View.VISIBLE);
-                    }
-                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     @Subscribe
-    public void onEvent(Envents.LoginEvent event){
+    public void onEvent(Envents.LoginEvent event) {
         getListData(0, 10);
     }
 }

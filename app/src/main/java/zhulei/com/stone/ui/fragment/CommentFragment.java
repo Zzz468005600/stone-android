@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import zhulei.com.stone.R;
@@ -49,39 +50,36 @@ public class CommentFragment extends BaseFragment {
 
     @BindView(R.id.comment_content)
     EditText mCommentContent;
+
     @OnClick(R.id.btn_send)
-    public void onBtnSendClicked(){
+    public void onBtnSendClicked() {
         String content = mCommentContent.getText().toString();
-        if (TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             Toast.makeText(getContext(), "请输入评论内容", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user = User.getCurrentUser(getContext(), User.class);
+        User user = User.getCurrentUser(User.class);
         Comment comment = new Comment();
         comment.setContent(content);
         comment.setMessage(mCurMessage);
         comment.setUser(user);
         showProgress();
-        comment.save(getContext(), new SaveListener() {
-            @Override
-            public void onSuccess() {
-                if (getActivity() != null && isVisible()){
-                    hideProgress();
-                    Toast.makeText(getContext(), "评论成功", Toast.LENGTH_SHORT).show();
-                    mListContainer.setRefreshing(true);
-                    getListData(0, LIMIT);
-                    mCommentContent.setText("");
-                }
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                if (getActivity() != null && isVisible()){
-                    hideProgress();
-                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        comment.save(
+                new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        hideProgress();
+                        if (getActivity() != null && isVisible()) {
+                            if (e == null) {
+                                mListContainer.setRefreshing(true);
+                                getListData(0, LIMIT);
+                                mCommentContent.setText("");
+                            } else {
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
     }
 
     private ArrayList<Comment> mComments;
@@ -133,7 +131,7 @@ public class CommentFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int visibleItemCount = mListContent.getChildCount();
                 int totalItemCount = recyclerView.getLayoutManager().getItemCount();
-                int firstVisibleItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
 
                 if (isLoading) {
                     if (totalItemCount > mPreviousTotal) {
@@ -158,19 +156,19 @@ public class CommentFragment extends BaseFragment {
         getListData(0, LIMIT);
     }
 
-    private void refreshContent(){
-        if (mComments.isEmpty()){
+    private void refreshContent() {
+        if (mComments.isEmpty()) {
             mEmptyContent.setVisibility(View.VISIBLE);
             mListContainer.setVisibility(View.GONE);
-        }else {
+        } else {
             mEmptyContent.setVisibility(View.GONE);
             mListContainer.setVisibility(View.VISIBLE);
         }
     }
 
-    private void getListData(final int skip, int limit){
+    private void getListData(final int skip, int limit) {
         isLoading = true;
-        if (skip == 0){
+        if (skip == 0) {
             mPreviousTotal = 0;
         }
         BmobQuery<Comment> query = new BmobQuery<Comment>();
@@ -179,38 +177,35 @@ public class CommentFragment extends BaseFragment {
         query.setSkip(skip);
         query.setLimit(limit);
         query.order("-createdAt");
-        query.findObjects(getContext(), new FindListener<Comment>() {
+        query.findObjects(new FindListener<Comment>() {
             @Override
-            public void onSuccess(List<Comment> list) {
-                if (getActivity() != null && isVisible()){
-                    if (skip == 0){
-                        mComments.clear();
+            public void done(List<Comment> list, BmobException e) {
+                if (getActivity() != null && isVisible()) {
+                    if (e == null) {
+                        if (skip == 0) {
+                            mComments.clear();
+                        }
+                        mComments.addAll(list);
+                        if (mContentProgress.isShown()) {
+                            mContentProgress.hide();
+                            mContentProgress.setVisibility(View.GONE);
+                        }
+                        if (mListContainer.isRefreshing()) {
+                            mListContainer.setRefreshing(false);
+                        }
+                        mCommentAdapter.notifyDataSetChanged();
+                        refreshContent();
+                    } else {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (mContentProgress.isShown()) {
+                            mContentProgress.hide();
+                            mContentProgress.setVisibility(View.GONE);
+                        }
+                        if (mListContainer.isRefreshing()) {
+                            mListContainer.setRefreshing(false);
+                        }
+                        refreshContent();
                     }
-                    mComments.addAll(list);
-                    if (mContentProgress.isShown()){
-                        mContentProgress.hide();
-                        mContentProgress.setVisibility(View.GONE);
-                    }
-                    if (mListContainer.isRefreshing()){
-                        mListContainer.setRefreshing(false);
-                    }
-                    mCommentAdapter.notifyDataSetChanged();
-                    refreshContent();
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                if (getActivity() != null && isVisible()){
-                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                    if (mContentProgress.isShown()){
-                        mContentProgress.hide();
-                        mContentProgress.setVisibility(View.GONE);
-                    }
-                    if (mListContainer.isRefreshing()){
-                        mListContainer.setRefreshing(false);
-                    }
-                    refreshContent();
                 }
             }
         });

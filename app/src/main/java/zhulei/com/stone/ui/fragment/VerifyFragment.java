@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import zhulei.com.stone.R;
@@ -82,21 +83,17 @@ public class VerifyFragment extends BaseFragment {
                 user.setMobilePhoneNumber(mMobile.getText() + "");
                 user.setPassword(mUserPsw.getText() + "");
                 showProgress();
-                user.signUp(getContext(), new SaveListener() {
+                user.signUp(new SaveListener<String>() {
                     @Override
-                    public void onSuccess() {
+                    public void done(String s, BmobException e) {
                         hideProgress();
                         if (getActivity() != null && isVisible()) {
-                            Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
-                            popFragment();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        hideProgress();
-                        if (getActivity() != null && isVisible()) {
-                            Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                            if (e == null) {
+                                Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                                popFragment();
+                            } else {
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
@@ -105,28 +102,20 @@ public class VerifyFragment extends BaseFragment {
             }
         } else if (mAction == RESET) {
             if (!TextUtils.isEmpty(mOldPsw.getText())) {
-                BmobUser user = BmobUser.getCurrentUser(getContext());
+                BmobUser user = BmobUser.getCurrentUser();
                 if (user != null) {
                     showProgress();
-                    user.updateCurrentUserPassword(getContext(), mOldPsw.getText().toString(),
+                    BmobUser.updateCurrentUserPassword(mOldPsw.getText().toString(),
                             mUserPsw.getText().toString(), new UpdateListener() {
                                 @Override
-                                public void onSuccess() {
+                                public void done(BmobException e) {
                                     hideProgress();
                                     if (getActivity() != null && isVisible()) {
-                                        Toast.makeText(getContext(), getString(R.string.reset_success), Toast.LENGTH_SHORT).show();
-                                        popFragment();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(int i, String s) {
-                                    hideProgress();
-                                    if (getActivity() != null && isVisible()) {
-                                        if (s.contains("sessionToken")){
-                                            Toast.makeText(getContext(), getString(R.string.first_login), Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                                        if (e == null) {
+                                            Toast.makeText(getContext(), getString(R.string.reset_success), Toast.LENGTH_SHORT).show();
+                                            popFragment();
+                                        } else {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }

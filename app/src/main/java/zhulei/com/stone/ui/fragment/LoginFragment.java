@@ -54,7 +54,7 @@ public class LoginFragment extends BaseFragment {
         if (CheckUtil.isValidMobile(mUserMobile.getText())){
             if (!TextUtils.isEmpty(mUserPsw.getText())){
                 showProgress();
-                BmobUser.loginByAccount(getContext(), mUserMobile.getText() + "", mUserPsw.getText() + "",
+                BmobUser.loginByAccount(mUserMobile.getText() + "", mUserPsw.getText() + "",
                         new LogInListener<User>() {
                             @Override
                             public void done(User user, BmobException e) {

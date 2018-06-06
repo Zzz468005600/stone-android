@@ -8,17 +8,17 @@ import zhulei.com.stone.ui.base.IBaseView;
  */
 public class BasePresenter<V extends IBaseView, M extends BaseModel> {
 
-    protected V mView;
-    protected M mModel;
-
-
-    public BasePresenter(V view, M model){
-        this.mView = view;
-        this.mModel = model;
-    }
-
-    public void onDestroy(){
-        mModel.onDestroy();
-    }
+//    protected V mView;
+//    protected M mModel;
+//
+//
+//    public BasePresenter(V view, M model){
+//        this.mView = view;
+//        this.mModel = model;
+//    }
+//
+//    public void onDestroy(){
+//        mModel.onDestroy();
+//    }
 
 }

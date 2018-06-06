@@ -33,6 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
@@ -237,8 +238,7 @@ public class PostFragment extends BaseFragment {
     }
 
     private void uploadImages(final String[] images) {
-        final BmobFile bmobFile = new BmobFile();
-        bmobFile.uploadBatch(getActivity(), images, new UploadBatchListener() {
+        BmobFile.uploadBatch(images, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> list, List<String> list1) {
                 if (getActivity() != null && isVisible()) {
@@ -264,7 +264,7 @@ public class PostFragment extends BaseFragment {
 
     private void sendMessage(List<String> images) {
         Message message = new Message();
-        User user = BmobUser.getCurrentUser(getContext(), User.class);
+        User user = BmobUser.getCurrentUser(User.class);
         message.setUser(user);
         if (images != null) {
             message.setImages(ImageUtil.transImages(images));
@@ -273,23 +273,20 @@ public class PostFragment extends BaseFragment {
             message.setText(mEtText.getText() + "");
             message.setImages("");
         }
-        message.save(getContext(), new SaveListener() {
+        message.save(new SaveListener<String>() {
             @Override
-            public void onSuccess() {
+            public void done(String s, BmobException e) {
                 if (getActivity() != null && isVisible()) {
-                    posting = false;
-                    hideProgress();
-                    Toast.makeText(getContext(), "发表成功", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
-                }
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                if (getActivity() != null && isVisible()) {
-                    posting = true;
-                    hideProgress();
-                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    if (e == null) {
+                        posting = false;
+                        hideProgress();
+                        Toast.makeText(getContext(), "发表成功", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    } else {
+                        posting = true;
+                        hideProgress();
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

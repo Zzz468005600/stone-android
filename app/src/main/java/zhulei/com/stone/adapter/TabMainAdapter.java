@@ -26,6 +26,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.data.model.entity.Comment;
@@ -126,19 +127,15 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
             query.addWhereEqualTo("message", message);
             query.setLimit(10);
             query.setSkip(0);
-            query.findObjects(mContext, new FindListener<Comment>() {
+            query.findObjects(new FindListener<Comment>() {
                 @Override
-                public void onSuccess(List<Comment> list) {
-                    if (mContext != null && holder.mBageTextView != null){
-                        if (list != null){
+                public void done(List<Comment> list, BmobException e) {
+                    if (e == null){
+                        if (mContext != null && holder.mBageTextView != null && list != null){
                             mCommentCount.put(message.getObjectId(), list.size());
                             setCommentCount(message.getObjectId(), holder.mBageTextView);
                         }
                     }
-                }
-
-                @Override
-                public void onError(int i, String s) {
                 }
             });
 
@@ -168,7 +165,7 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
                 commentCount.setVisibility(View.GONE);
             }else if (count < 10){
                 commentCount.setVisibility(View.VISIBLE);
-                commentCount.setText(count + "");
+                commentCount.setText(String.valueOf(count));
             }else {
                 commentCount.setVisibility(View.VISIBLE);
                 commentCount.setText("...");

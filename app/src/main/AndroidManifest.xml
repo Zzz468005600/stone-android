@@ -16,8 +16,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <meta-data android:value="Channel ID" android:name="BMOB_CHANNEL"/>
-
     <application
         xmlns:tools="http://schemas.android.com/tools"
         tools:replace="android:label"
@@ -27,6 +25,7 @@
         android:label="@string/app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app"

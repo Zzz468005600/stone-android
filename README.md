@@ -1,5 +1,3 @@
-# Stone
-## just for practice
-## 1.RecyclerView与cardview
-## 2.CoordinatorLayout AppBarLayout CollapsingToolbarLayout NestedScrollView
-## 3.相关常用框架
+##About
+此项目为16年用来练习当时一些主流框架，后面工作太忙，没时间更新了。
+

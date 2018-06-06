@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.nav_logout) {
             UserManager.instance().logOut();
-            BmobUser.logOut(this);
+            BmobUser.logOut();
             refreshHeader();
             return true;
         }

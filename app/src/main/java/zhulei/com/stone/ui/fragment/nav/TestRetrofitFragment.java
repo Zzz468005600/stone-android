@@ -12,7 +12,6 @@ import butterknife.OnClick;
 import zhulei.com.stone.R;
 import zhulei.com.stone.data.model.entity.ZhiHuImage;
 import zhulei.com.stone.presenter.ITestRetrofitPresenter;
-import zhulei.com.stone.presenter.imp.TestRetrofitPresenter;
 import zhulei.com.stone.ui.base.BaseFragment;
 import zhulei.com.stone.ui.view.ITestRetrofitView;
 
@@ -27,7 +26,7 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
     TextView mText;
 
     @OnClick(R.id.test_btn)
-    void onTestBtnClicked(){
+    void onTestBtnClicked() {
         mPresenter.getZhiHu();
     }
 
@@ -39,7 +38,8 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
 
     @Override
     protected ITestRetrofitPresenter initPresenter() {
-        return new TestRetrofitPresenter(this);
+//        return new TestRetrofitPresenter(this);
+        return null;
     }
 
     @Override
@@ -47,14 +47,13 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
         return R.layout.fragment_test;
     }
 
-    public static TestRetrofitFragment newInstance(){
-        TestRetrofitFragment instance = new TestRetrofitFragment();
-        return instance;
+    public static TestRetrofitFragment newInstance() {
+        return new TestRetrofitFragment();
     }
 
     @Override
     public void onGetZhiHuSuccess(ZhiHuImage image) {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             mText.setText(image.getText());
             Picasso.with(getContext())
                     .load(image.getImg())
@@ -64,7 +63,7 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
 
     @Override
     public void onGetZhiHuFail(String message) {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
     }

@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
@@ -57,23 +58,24 @@ public class ProfileActivity extends AppCompatActivity {
     private MaterialDialog mLoadingDialog;
 
     @OnClick(R.id.action_personal_set)
-    public void onPersonalSetClicked(){
+    public void onPersonalSetClicked() {
         Intent intent = new Intent(this, BirthDaySettingActivity.class);
         startActivity(intent);
     }
+
     @OnClick(R.id.header_set)
-    public void onHeaderSetClicked(){
+    public void onHeaderSetClicked() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED){
+                PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
             }
-        }else {
+        } else {
             openImageSelector();
         }
     }
 
-    private void openImageSelector(){
+    private void openImageSelector() {
         MultiImageSelector.create(this)
                 .showCamera(true)
                 .single()
@@ -82,8 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_STORAGE){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_READ_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openImageSelector();
                 return;
             }
@@ -93,22 +95,21 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE){
-            if (resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
                 List<String> images = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                if (images != null && images.size() > 0){
+                if (images != null && images.size() > 0) {
                     final BmobFile bmobFile = new BmobFile(new File(images.get(0)));
                     showProgress("正在上传头像...");
-                    bmobFile.uploadblock(this, new UploadFileListener() {
+                    bmobFile.uploadblock(new UploadFileListener() {
                         @Override
-                        public void onSuccess() {
-                            updateUser(bmobFile);
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            hideProgress();
-                            Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                updateUser(bmobFile);
+                            } else {
+                                hideProgress();
+                                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -117,12 +118,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void hideProgress() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()){
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
 
     private void showProgress(String s) {
+        hideProgress();
         mLoadingDialog = new MaterialDialog.Builder(this)
                 .content(s)
                 .progress(true, 0)
@@ -130,23 +132,22 @@ public class ProfileActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void updateUser(BmobFile bmobFile){
+    private void updateUser(BmobFile bmobFile) {
         final User newUser = new User();
-        newUser.setHeader(bmobFile.getFileUrl(this));
-        BmobUser user = User.getCurrentUser(this);
-        newUser.update(this, user.getObjectId(), new UpdateListener() {
+        newUser.setHeader(bmobFile.getFileUrl());
+        BmobUser user = User.getCurrentUser();
+        newUser.update(user.getObjectId(), new UpdateListener() {
             @Override
-            public void onSuccess() {
-                hideProgress();
-                UserManager.instance().updateUserHeader(newUser.getHeader());
-                refreshHeader();
-                EventBus.getDefault().post(new Envents.UpdateUserHeader());
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                hideProgress();
-                Toast.makeText(ProfileActivity.this, s, Toast.LENGTH_SHORT).show();
+            public void done(BmobException e) {
+                if (e == null) {
+                    hideProgress();
+                    UserManager.instance().updateUserHeader(newUser.getHeader());
+                    refreshHeader();
+                    EventBus.getDefault().post(new Envents.UpdateUserHeader());
+                } else {
+                    hideProgress();
+                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

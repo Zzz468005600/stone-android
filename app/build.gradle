@@ -40,11 +40,11 @@ dependencies {
     }
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-//    implementation 'io.reactivex:rxandroid:1.2.1'
-//    implementation 'io.reactivex:rxjava:1.1.6'
-//    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-//    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-//    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-//    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'top.zibin:Luban:1.0.5'
 }

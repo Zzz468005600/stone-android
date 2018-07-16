@@ -1,7 +1,5 @@
 package zhulei.com.stone.ui.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,27 +7,14 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.io.File;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import zhulei.com.stone.R;
 import zhulei.com.stone.data.manager.UserManager;
-import zhulei.com.stone.data.model.entity.User;
-import zhulei.com.stone.others.event.Envents;
 import zhulei.com.stone.ui.base.BaseFragment;
 
 /**
@@ -95,54 +80,6 @@ public class ProfileFragment extends BaseFragment {
         }
         mUserName.setText(UserManager.instance().getUserName());
         mUserMobile.setText(UserManager.instance().getPhoneNumber());
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                List<String> images = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                if (images != null && images.size() > 0) {
-                    final BmobFile bmobFile = new BmobFile(new File(images.get(0)));
-                    showProgress("正在上传头像...");
-                    bmobFile.uploadblock(new UploadFileListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            hideProgress();
-                            if (getActivity() != null && isVisible()) {
-                                if (e == null) {
-                                    updateUser(bmobFile);
-                                } else {
-                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private void updateUser(BmobFile bmobFile) {
-        final User newUser = new User();
-        newUser.setHeader(bmobFile.getFileUrl());
-        BmobUser user = User.getCurrentUser();
-        newUser.update(user.getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        hideProgress();
-                        if (getActivity() != null && isVisible()) {
-                            if (e == null) {
-                                UserManager.instance().updateUserHeader(newUser.getHeader());
-                                refreshHeader();
-                                EventBus.getDefault().post(new Envents.UpdateUserHeader());
-                            } else {
-                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                }
-        );
     }
 
     @Override

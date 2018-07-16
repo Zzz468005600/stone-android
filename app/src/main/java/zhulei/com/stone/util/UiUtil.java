@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Created by zhulei on 16/8/11.
  */
-public class UiUtil {
+public final class UiUtil {
 
     public static void hideIme(View view, Activity activity) {
         if (view != null) {

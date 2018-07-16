@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by zhulei on 16/6/6.
  */
-public class ImageUtil {
+public final class ImageUtil {
 
     public static String transImages(List<String> images){
         StringBuilder imagesTrans = new StringBuilder();

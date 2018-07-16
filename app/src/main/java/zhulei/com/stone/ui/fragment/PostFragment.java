@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +21,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,22 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadBatchListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.model.entity.Photo;
-import zhulei.com.stone.data.model.entity.User;
-import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.ui.base.BaseFragment;
-import zhulei.com.stone.util.ImageUtil;
-import zhulei.com.stone.util.UiUtil;
 
 /**
  * Created by zhulei on 16/5/29.
@@ -170,126 +156,7 @@ public class PostFragment extends BaseFragment {
     }
 
     private void postMessage() {
-        if (!UserManager.instance().hasLogin()) {
-            Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(mEtText.getText().toString().trim())) {
-            Toast.makeText(getContext(), "请输入内容", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        posting = true;
-        final String[] images;
-        if (mPhotos.size() > 1) {
-            UiUtil.hideIme(mEtText, getActivity());
-            showProgress("正在发表...");
-            if (mPhotos.get(0).isEmpty()) {
-                images = new String[mPhotos.size() - 1];
-            } else {
-                images = new String[mPhotos.size()];
-            }
-            for (int i = 0; i < mPhotos.size(); i++) {
-                Photo photo = mPhotos.get(i);
-                if (images.length == mPhotos.size()) {
-                    images[i] = photo.localPath;
-                } else {
-                    if (i > 0) {
-                        images[i - 1] = photo.localPath;
-                    }
-                }
-            }
-            for (int i = 0; i < images.length; i++) {
-                Luban.get(getActivity())
-                        .load(new File(images[i]))
-                        .putGear(Luban.THIRD_GEAR)
-                        .setCompressListener(new OnCompressListener() {
-                            int index = 0;
 
-                            @Override
-                            public void onStart() {
-                            }
-
-                            @Override
-                            public void onSuccess(File file) {
-                                if (getActivity() != null && isVisible()) {
-                                    images[index] = file.getAbsolutePath();
-                                    index++;
-                                    if (index == images.length) {
-                                        uploadImages(images);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                if (getActivity() != null && isVisible()) {
-                                    posting = false;
-                                    Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .launch();
-            }
-
-        } else {
-            showProgress("正在发表...");
-            sendMessage(null);
-        }
-    }
-
-    private void uploadImages(final String[] images) {
-        BmobFile.uploadBatch(images, new UploadBatchListener() {
-            @Override
-            public void onSuccess(List<BmobFile> list, List<String> list1) {
-                if (getActivity() != null && isVisible()) {
-                    if (list1 != null && list1.size() == images.length) {
-                        sendMessage(list1);
-                    }
-                }
-            }
-
-            @Override
-            public void onProgress(int i, int i1, int i2, int i3) {
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                if (getActivity() != null && isVisible()) {
-                    posting = false;
-                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void sendMessage(List<String> images) {
-        Message message = new Message();
-        User user = BmobUser.getCurrentUser(User.class);
-        message.setUser(user);
-        if (images != null) {
-            message.setImages(ImageUtil.transImages(images));
-            message.setText(mEtText.getText() + "");
-        } else {
-            message.setText(mEtText.getText() + "");
-            message.setImages("");
-        }
-        message.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                if (getActivity() != null && isVisible()) {
-                    if (e == null) {
-                        posting = false;
-                        hideProgress();
-                        Toast.makeText(getContext(), "发表成功", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
-                    } else {
-                        posting = true;
-                        hideProgress();
-                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
     }
 
     public static class PhotoAdapter extends BaseAdapter {

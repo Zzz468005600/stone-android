@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -25,16 +22,10 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.model.entity.Comment;
 import zhulei.com.stone.data.model.entity.Message;
-import zhulei.com.stone.data.model.entity.User;
 import zhulei.com.stone.ui.activity.ImageActivity;
 import zhulei.com.stone.ui.widget.BageTextView;
-import zhulei.com.stone.util.ImageUtil;
 
 /**
  * Created by zhulei on 16/6/6.
@@ -72,89 +63,6 @@ public class TabMainAdapter extends RecyclerView.Adapter<TabMainAdapter.TabViewH
 
     @Override
     public void onBindViewHolder(final TabMainAdapter.TabViewHolder holder, final int position) {
-        final Message message = mData.get(position);
-        User user = message.getUser();
-        String userHeader = user.getHeader();
-        String userName = user.getUsername();
-        String text = message.getText();
-        ArrayList<String> images = ImageUtil.getImages(message.getImages());
-        String create = message.getCreatedAt();
-        if (!TextUtils.isEmpty(userHeader)){
-            Picasso.with(mContext)
-                    .load(userHeader)
-                    .tag(TAG)
-                    .config(Bitmap.Config.ALPHA_8)
-                    .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
-                            mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
-                    .centerCrop()
-                    .error(R.drawable.loading_fail)
-                    .placeholder(R.drawable.ic_loading)
-                    .into(holder.mUserHeader);
-        }else {
-            Picasso.with(mContext)
-                    .load(R.drawable.user_header)
-                    .tag(TAG)
-                    .config(Bitmap.Config.ALPHA_8)
-                    .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
-                            mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
-                    .centerCrop()
-                    .into(holder.mUserHeader);
-        }
-        if (userName != null){
-            holder.mUserName.setText(userName);
-        }
-        if (text != null){
-            holder.mTvContent.setText(text);
-        }
-        if (create != null){
-            holder.mCreate.setText(create);
-        }
-        if (images != null && !images.isEmpty()){
-            holder.mImages.setVisibility(View.VISIBLE);
-            if (images.size() <= 4){
-                holder.mImages.setNumColumns(2);
-            }else {
-                holder.mImages.setNumColumns(3);
-            }
-            holder.mImages.setAdapter(new ImageAdater(images));
-        }else {
-            holder.mImages.setVisibility(View.GONE);
-        }
-
-        holder.mBageTextView.setVisibility(View.GONE);
-        if (position > mOldPosition){
-            final BmobQuery<Comment> query = new BmobQuery<>();
-            query.addWhereEqualTo("message", message);
-            query.setLimit(10);
-            query.setSkip(0);
-            query.findObjects(new FindListener<Comment>() {
-                @Override
-                public void done(List<Comment> list, BmobException e) {
-                    if (e == null){
-                        if (mContext != null && holder.mBageTextView != null && list != null){
-                            mCommentCount.put(message.getObjectId(), list.size());
-                            setCommentCount(message.getObjectId(), holder.mBageTextView);
-                        }
-                    }
-                }
-            });
-
-            AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(mContext, R.anim.card_item);
-            holder.mCardItem.setAnimation(set);
-            set.start();
-            mOldPosition = position;
-        }else {
-            setCommentCount(message.getObjectId(), holder.mBageTextView);
-        }
-
-        holder.mIvComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null){
-                    mListener.onCommentClicked(message);
-                }
-            }
-        });
 
     }
 

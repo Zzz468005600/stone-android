@@ -36,33 +36,7 @@ public class UserManager {
     }
 
     public void saveUser(User user){
-        if (user == null){
-            return;
-        }
-        objectId = user.getObjectId();
-        if (objectId != null){
-            Hawk.put(OBJECT_ID, objectId);
-        }else {
-            Hawk.remove(OBJECT_ID);
-        }
-        userName = user.getUsername();
-        if (userName != null){
-            Hawk.put(USER_NAME, userName);
-        }else {
-            Hawk.remove(USER_NAME);
-        }
-        phoneNumber = user.getMobilePhoneNumber();
-        if (phoneNumber != null){
-            Hawk.put(PHONE_NUMBER, phoneNumber);
-        }else {
-            Hawk.remove(PHONE_NUMBER);
-        }
-        userHeader = user.getHeader();
-        if (userHeader != null){
-            Hawk.put(USER_HEADER, userHeader);
-        }else {
-            Hawk.remove(USER_HEADER);
-        }
+
     }
 
     public void updateUserHeader(String header){

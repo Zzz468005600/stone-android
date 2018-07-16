@@ -10,18 +10,12 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 import zhulei.com.stone.R;
 import zhulei.com.stone.ui.base.BaseFragment;
-import zhulei.com.stone.util.CheckUtil;
 
 /**
  * Created by zhulei on 16/5/27.
@@ -68,65 +62,7 @@ public class VerifyFragment extends BaseFragment {
 
     @OnClick(R.id.btn_commit)
     public void onCommitBtnClicked() {
-        if (TextUtils.isEmpty(mUserPsw.getText())) {
-            mUserPsw.setError(getString(R.string.error_psw));
-            return;
-        }
-        if (mAction == REGISTER) {
-            if (CheckUtil.isValidMobile(mMobile.getText())) {
-                if (TextUtils.isEmpty(mUserName.getText().toString().trim())) {
-                    mUserName.setError(getString(R.string.error_user_name));
-                    return;
-                }
-                final BmobUser user = new BmobUser();
-                user.setUsername(mUserName.getText() + "");
-                user.setMobilePhoneNumber(mMobile.getText() + "");
-                user.setPassword(mUserPsw.getText() + "");
-                showProgress();
-                user.signUp(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        hideProgress();
-                        if (getActivity() != null && isVisible()) {
-                            if (e == null) {
-                                Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
-                                popFragment();
-                            } else {
-                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                });
-            } else {
-                mMobile.setError(getString(R.string.error_mobile));
-            }
-        } else if (mAction == RESET) {
-            if (!TextUtils.isEmpty(mOldPsw.getText())) {
-                BmobUser user = BmobUser.getCurrentUser();
-                if (user != null) {
-                    showProgress();
-                    BmobUser.updateCurrentUserPassword(mOldPsw.getText().toString(),
-                            mUserPsw.getText().toString(), new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                                    hideProgress();
-                                    if (getActivity() != null && isVisible()) {
-                                        if (e == null) {
-                                            Toast.makeText(getContext(), getString(R.string.reset_success), Toast.LENGTH_SHORT).show();
-                                            popFragment();
-                                        } else {
-                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-                            });
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.never_login), Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                mOldPsw.setError(getString(R.string.error_psw));
-            }
-        }
+
     }
 
     @Override

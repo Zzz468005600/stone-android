@@ -1,11 +1,10 @@
 package zhulei.com.stone.data.model.entity;
 
-import cn.bmob.v3.BmobObject;
 
 /**
  * Created by zhulei on 16/6/19.
  */
-public class Comment extends BmobObject {
+public class Comment{
 
     private User user;
     private Message message;

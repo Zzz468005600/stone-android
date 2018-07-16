@@ -39,27 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(CommentViewHolder holder, int position) {
-        Comment comment = mComments.get(position);
-        User user = comment.getUser();
-        if (user.getHeader() != null) {
-            Picasso.with(mContext)
-                    .load(user.getHeader())
-                    .resize(mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small),
-                            mContext.getResources().getDimensionPixelSize(R.dimen.size_thumbnail_small))
-                    .placeholder(R.drawable.ic_loading)
-                    .error(R.drawable.loading_fail)
-                    .centerCrop()
-                    .into(holder.mUserHeader);
-        }
-        if (user.getUsername() != null) {
-            holder.mUserName.setText(user.getUsername());
-        }
-        if (comment.getCreatedAt() != null) {
-            holder.mCreateTime.setText(comment.getCreatedAt());
-        }
-        if (comment.getContent() != null) {
-            holder.mCommentContent.setText(comment.getContent());
-        }
+
     }
 
     @Override

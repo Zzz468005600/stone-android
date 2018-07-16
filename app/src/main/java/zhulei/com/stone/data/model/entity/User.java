@@ -1,11 +1,10 @@
 package zhulei.com.stone.data.model.entity;
 
-import cn.bmob.v3.BmobUser;
 
 /**
  * Created by zhulei on 16/5/30.
  */
-public class User extends BmobUser {
+public class User{
 
     private String header;
 

@@ -2,12 +2,10 @@ package zhulei.com.stone.data.model.entity;
 
 import java.io.Serializable;
 
-import cn.bmob.v3.BmobObject;
-
 /**
  * Created by zhulei on 16/6/6.
  */
-public class Message extends BmobObject implements Serializable {
+public class Message implements Serializable {
 
     private User user;
     private String text;

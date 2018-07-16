@@ -1,7 +1,6 @@
 package zhulei.com.stone.ui.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,29 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.io.File;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import zhulei.com.stone.R;
-import zhulei.com.stone.data.model.entity.User;
 import zhulei.com.stone.data.manager.UserManager;
-import zhulei.com.stone.others.event.Envents;
 import zhulei.com.stone.ui.widget.WaterView;
 
 /**
@@ -95,61 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                List<String> images = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                if (images != null && images.size() > 0) {
-                    final BmobFile bmobFile = new BmobFile(new File(images.get(0)));
-                    showProgress("正在上传头像...");
-                    bmobFile.uploadblock(new UploadFileListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                updateUser(bmobFile);
-                            } else {
-                                hideProgress();
-                                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-        }
     }
 
     private void hideProgress() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
-    }
-
-    private void showProgress(String s) {
-        hideProgress();
-        mLoadingDialog = new MaterialDialog.Builder(this)
-                .content(s)
-                .progress(true, 0)
-                .canceledOnTouchOutside(false)
-                .show();
-    }
-
-    private void updateUser(BmobFile bmobFile) {
-        final User newUser = new User();
-        newUser.setHeader(bmobFile.getFileUrl());
-        BmobUser user = User.getCurrentUser();
-        newUser.update(user.getObjectId(), new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    hideProgress();
-                    UserManager.instance().updateUserHeader(newUser.getHeader());
-                    refreshHeader();
-                    EventBus.getDefault().post(new Envents.UpdateUserHeader());
-                } else {
-                    hideProgress();
-                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override

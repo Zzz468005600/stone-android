@@ -5,13 +5,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by zhulei on 16/5/27.
  */
-public abstract class AppActivity extends AppCompatActivity{
+public abstract class AppActivity extends SupportActivity {
 
     //由于有些跳转无需参数,所以这里无需抽象方法
     protected void handleIntent(Intent intent){

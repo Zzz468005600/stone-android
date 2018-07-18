@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'top.zibin:Luban:1.0.5'
+    implementation 'com.blankj:utilcode:1.17.3'
 }

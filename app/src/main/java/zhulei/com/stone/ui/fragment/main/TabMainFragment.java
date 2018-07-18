@@ -47,4 +47,9 @@ public class TabMainFragment extends BaseListFragment {
     public void onEvent(Envents.LoginEvent event) {
         getListData(0, 10);
     }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
 }

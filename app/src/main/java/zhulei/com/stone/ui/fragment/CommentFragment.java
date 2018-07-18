@@ -59,9 +59,9 @@ public class CommentFragment extends BaseFragment {
     }
 
     @Override
-    protected void initToolBar(Toolbar toolbar) {
-        super.initToolBar(toolbar);
-        toolbar.setTitle(R.string.comment_list);
+    protected void initToolBar() {
+        super.initToolBar();
+        mCenterTitle.setText(R.string.comment_list);
     }
 
     public static CommentFragment newInstance(Message message) {

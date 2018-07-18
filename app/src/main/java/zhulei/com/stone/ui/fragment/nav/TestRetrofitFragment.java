@@ -18,7 +18,7 @@ import zhulei.com.stone.ui.view.ITestRetrofitView;
 /**
  * Created by zhulei on 16/8/29.
  */
-public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> implements ITestRetrofitView {
+public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter>{
 
     @BindView(R.id.img)
     ImageView mImg;
@@ -27,19 +27,13 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
 
     @OnClick(R.id.test_btn)
     void onTestBtnClicked() {
-        mPresenter.getZhiHu();
+
     }
 
     @Override
-    protected void initToolBar(Toolbar toolbar) {
-        super.initToolBar(toolbar);
-        toolbar.setTitle("测试知乎接口");
-    }
-
-    @Override
-    protected ITestRetrofitPresenter initPresenter() {
-//        return new TestRetrofitPresenter(this);
-        return null;
+    protected void initToolBar() {
+        super.initToolBar();
+        mToolBar.setTitle("测试知乎接口");
     }
 
     @Override
@@ -51,20 +45,4 @@ public class TestRetrofitFragment extends BaseFragment<ITestRetrofitPresenter> i
         return new TestRetrofitFragment();
     }
 
-    @Override
-    public void onGetZhiHuSuccess(ZhiHuImage image) {
-        if (getActivity() != null) {
-            mText.setText(image.getText());
-            Picasso.with(getContext())
-                    .load(image.getImg())
-                    .into(mImg);
-        }
-    }
-
-    @Override
-    public void onGetZhiHuFail(String message) {
-        if (getActivity() != null) {
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        }
-    }
 }

@@ -1,8 +1,7 @@
 package zhulei.com.stone.ui.activity;
 
-import android.support.v4.app.Fragment;
-
 import zhulei.com.stone.ui.base.BaseActivity;
+import zhulei.com.stone.ui.base.BaseFragment;
 import zhulei.com.stone.ui.fragment.nav.TestRetrofitFragment;
 
 /**
@@ -10,7 +9,7 @@ import zhulei.com.stone.ui.fragment.nav.TestRetrofitFragment;
  */
 public class TestRetrofitActivity extends BaseActivity{
     @Override
-    protected Fragment getFirstFragment() {
+    protected BaseFragment getFirstFragment() {
         return TestRetrofitFragment.newInstance();
     }
 }

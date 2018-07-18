@@ -45,7 +45,7 @@ public class LoginFragment extends BaseFragment {
     }
     @OnClick(R.id.register_btn)
     public void onRegisterBtnClicked(){
-        pushFragment(VerifyFragment.newInstance(VerifyFragment.REGISTER));
+        start(VerifyFragment.newInstance(VerifyFragment.REGISTER));
     }
 
     @Override
@@ -53,9 +53,4 @@ public class LoginFragment extends BaseFragment {
         return R.layout.fragment_login;
     }
 
-    @Override
-    protected void initToolBar(Toolbar toolbar) {
-        super.initToolBar(toolbar);
-        toolbar.setTitle(R.string.login);
-    }
 }

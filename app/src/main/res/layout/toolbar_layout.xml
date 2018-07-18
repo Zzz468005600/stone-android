@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    app:titleTextAppearance="@style/title_text_style"
     android:elevation="1dp"
-    android:orientation="vertical">
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/center_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_margin="0dp"
+        android:includeFontPadding="false"
+        android:padding="0dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_title"
+        tools:text="标题" />
 
 </android.support.v7.widget.Toolbar>

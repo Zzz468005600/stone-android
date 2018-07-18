@@ -43,4 +43,9 @@ public class PersonalPostFragment extends BaseListFragment {
         }
 
     }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
 }

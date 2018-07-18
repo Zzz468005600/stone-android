@@ -24,11 +24,12 @@ import zhulei.com.stone.adapter.TabMainAdapter;
 import zhulei.com.stone.data.model.entity.Message;
 import zhulei.com.stone.data.manager.UserManager;
 import zhulei.com.stone.ui.activity.CommentActivity;
+import zhulei.com.stone.ui.base.BaseFragment;
 
 /**
  * Created by zhulei on 16/6/26.
  */
-public abstract class BaseListFragment extends Fragment {
+public abstract class BaseListFragment extends BaseFragment {
 
     @BindView(R.id.list_container)
     protected SwipeRefreshLayout mListContainer;
@@ -75,7 +76,6 @@ public abstract class BaseListFragment extends Fragment {
 
     private void initView() {
         initToolBar(mToolBar);
-        mListContainer.setColorSchemeColors(R.color.colorPrimaryDark);
         mListContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

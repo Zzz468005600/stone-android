@@ -71,15 +71,15 @@ public class VerifyFragment extends BaseFragment {
     }
 
     @Override
-    protected void initToolBar(Toolbar toolbar) {
-        super.initToolBar(toolbar);
+    protected void initToolBar() {
+        super.initToolBar();
         if (mAction == RESET) {
-            toolbar.setTitle(R.string.reset_psw);
+            mCenterTitle.setText(R.string.reset_psw);
             mVerifyNameLayout.setVisibility(View.GONE);
             mOldPswLayout.setVisibility(View.VISIBLE);
             mMobileLayout.setVisibility(View.GONE);
         } else {
-            toolbar.setTitle(R.string.register);
+            mCenterTitle.setText(R.string.register);
             mVerifyNameLayout.setVisibility(View.VISIBLE);
             mOldPswLayout.setVisibility(View.GONE);
             mMobileLayout.setVisibility(View.VISIBLE);

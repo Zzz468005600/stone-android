@@ -45,9 +45,9 @@ public class ImageFragment extends BaseFragment {
     }
 
     @Override
-    protected void initToolBar(Toolbar toolbar) {
-        super.initToolBar(toolbar);
-        toolbar.setBackgroundColor(Color.BLACK);
+    protected void initToolBar() {
+        super.initToolBar();
+        mToolBar.setBackgroundColor(Color.BLACK);
     }
 
     @Override

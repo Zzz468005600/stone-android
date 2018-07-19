@@ -18,6 +18,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Hawk.init(getApplicationContext())
+                .build();
+
         Utils.init(getApplicationContext());
 
         Fragmentation.builder()

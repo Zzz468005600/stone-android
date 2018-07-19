@@ -42,7 +42,7 @@ public class UserManager {
     public void updateUserHeader(String header){
         userHeader = header;
         if (userHeader == null){
-            Hawk.remove(USER_HEADER);
+            Hawk.delete(USER_HEADER);
         }else {
             Hawk.put(USER_HEADER, userHeader);
         }
@@ -53,7 +53,6 @@ public class UserManager {
         userName = null;
         phoneNumber = null;
         userHeader = null;
-        Hawk.remove(OBJECT_ID, USER_NAME, PHONE_NUMBER, USER_HEADER);
     }
 
     public boolean hasLogin(){

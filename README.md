@@ -1,3 +1,7 @@
 ## About
-*此项目为16年用来练习当时一些主流框架，后面工作太忙，没时间更新了。*
+### 使用到的第三方库：
+1. [Retrofit](https://github.com/square/retrofit)
+2. [Hawk](https://github.com/ferventdesert/Hawk)
+3. [Fragmentation](https://github.com/YoKeyword/Fragmentation)
+4. [material-dialogs](https://github.com/afollestad/material-dialogs)
 

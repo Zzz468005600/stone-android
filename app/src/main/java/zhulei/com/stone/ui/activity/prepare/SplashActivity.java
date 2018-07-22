@@ -1,8 +1,7 @@
-package zhulei.com.stone.ui.activity;
+package zhulei.com.stone.ui.activity.prepare;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PermissionInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
-import java.security.Permission;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -116,6 +114,7 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
     }
 
     private void requestPermissionsSuccess() {
-        //TODO
+        startActivity(new Intent(this, GuideActivity.class));
+        finish();
     }
 }

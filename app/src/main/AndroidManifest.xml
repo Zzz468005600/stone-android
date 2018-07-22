@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
-            android:name=".ui.activity.SplashActivity">
+            android:name=".ui.activity.prepare.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -73,6 +73,7 @@
 
         <activity android:name=".ui.activity.TestRetrofitActivity"
             android:label="测试"/>
+        <activity android:name=".ui.activity.prepare.GuideActivity" />
 
     </application>
 

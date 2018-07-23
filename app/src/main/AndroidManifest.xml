@@ -23,56 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.MainActivity"/>
-
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:label="@string/login"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-
-        <activity
-            android:name=".ui.activity.ProfileActivity"
-            android:label="@string/profile"
-            android:theme="@style/AppTheme.NoActionBar.Main"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-
-        <activity
-            android:name=".ui.activity.PostActivity"
-            android:label="@string/post"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-
-        <activity
-            android:configChanges="orientation|screenSize"
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
-
-        <activity
-            android:name=".ui.activity.ImageActivity"
-            android:theme="@style/AppTheme.NoActionBar.Translucent"
-            android:label="@string/image"
-            android:process=":picture"/>
-
-        <activity
-            android:name=".ui.activity.CircleActivity"
-            android:label="@string/circle"/>
-
-        <activity
-            android:name=".ui.activity.PaintActivity"
-            android:label="@string/paint"/>
-
-        <activity
-            android:name=".ui.activity.BirthDaySettingActivity"
-            android:label="@string/birthday_setting"/>
-
-        <activity
-            android:name=".ui.activity.CommentActivity"
-            android:label="@string/comment_list"
-            android:windowSoftInputMode="stateHidden"/>
-
-        <activity android:name=".ui.activity.PersonalPostActivity"
-            android:label="@string/personal_post"/>
-
-        <activity android:name=".ui.activity.TestRetrofitActivity"
-            android:label="测试"/>
         <activity android:name=".ui.activity.prepare.GuideActivity" />
 
     </application>

@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionMenuTextColor">@android:color/white</item>
 
-        <item name="android:actionBarSize">@dimen/actionbar_height</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColor">@android:color/black</item>
 
@@ -21,10 +20,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Translucent">
-        <item name="android:windowBackground">@drawable/translucent</item>
-    </style>
-
     <style name="title_text_style" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/font_large</item>
         <item name="android:textColor">@android:color/white</item>
@@ -33,9 +28,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="PasswordCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/checkbox_password</item>
-    </style>
 
 </resources>

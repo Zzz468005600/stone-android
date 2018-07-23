@@ -7,8 +7,4 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Translucent">
-        <item name="android:windowBackground">@drawable/translucent</item>
-        <item name="android:statusBarColor">@color/translucent</item>
-    </style>
 </resources>

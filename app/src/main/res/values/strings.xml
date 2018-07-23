@@ -1,40 +1,5 @@
 <resources>
     <string name="app">Stone</string>
-    <string name="profile">个人中心</string>
     <string name="login">登陆</string>
-    <string name="post">发表内容</string>
-    <string name="image">查看大图</string>
-    <string name="circle">圆形动画</string>
-    <string name="reset_psw">修改密码</string>
-    <string name="register">注册</string>
-    <string name="login_register">登陆/注册</string>
-    <string name="paint">画板</string>
-    <string name="test">测试Retrofit</string>
-    <string name="birthday_setting">设置出生日期</string>
-    <string name="comment_list">评论列表</string>
-    <string name="personal_post">我的消息</string>
     <string name="normal_img">图片</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <!--error-->
-    <string name="error_mobile">手机号不合法</string>
-    <string name="error_psw">密码不可为空</string>
-    <string name="error_user_name">用户名不可为空</string>
-    <string name="error_login">用户名或密码错误</string>
-
-    <string name="login_success">登陆成功</string>
-    <string name="reset_success">密码重置成功</string>
-
-    <string name="never_login">您从未登陆过</string>
-    <string name="first_login">请先登陆</string>
-
-    <string name="account_info">账号</string>
-    <string name="log_out">退出账号</string>
-    <string name="nav_circle">弹弹弹</string>
-
-    <string name="loading">正在加载...</string>
 </resources>

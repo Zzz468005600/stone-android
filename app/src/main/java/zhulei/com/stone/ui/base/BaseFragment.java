@@ -1,7 +1,6 @@
 package zhulei.com.stone.ui.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 
 import butterknife.BindView;
@@ -18,12 +16,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 import zhulei.com.stone.R;
-import zhulei.com.stone.presenter.base.IBasePresenter;
 
 /**
  * Created by zhulei on 16/5/27.
  */
-public abstract class BaseFragment<P extends IBasePresenter> extends SupportFragment {
+public abstract class BaseFragment extends SupportFragment {
 
     protected abstract int getLayoutId();
 

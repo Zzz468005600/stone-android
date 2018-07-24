@@ -25,6 +25,8 @@
 
         <activity android:name=".ui.activity.prepare.GuideActivity" />
 
+        <activity android:name=".ui.activity.user.LoginActivity" />
+
     </application>
 
 </manifest>

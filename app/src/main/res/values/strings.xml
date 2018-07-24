@@ -1,5 +1,21 @@
 <resources>
     <string name="app">Stone</string>
-    <string name="login">登陆</string>
     <string name="normal_img">图片</string>
+
+    <!-- Login-->
+    <string name="countries_and_areas">国家和地区</string>
+    <string name="login_txt_china">中国</string>
+    <string name="login_mobile_hint">你的手机号码</string>
+    <string name="login_code_hint">输入验证码</string>
+    <string name="login_code">验证码</string>
+    <string name="login_send_code">发送验证码</string>
+    <string name="login_txt_86">+86</string>
+    <string name="password">密码</string>
+    <string name="login_psw_hint">填写密码</string>
+    <string name="login_commit">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_question">登录遇到问题？</string>
+    <string name="login_tip_tel_error">请输入正确的手机号！</string>
+    <string name="login_tip_login_error">登录失败</string>
+
 </resources>

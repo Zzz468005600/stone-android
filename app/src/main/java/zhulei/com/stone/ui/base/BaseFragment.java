@@ -24,33 +24,27 @@ public abstract class BaseFragment extends SupportFragment {
 
     protected abstract int getLayoutId();
 
-    @BindView(R.id.toolbar)
-    protected Toolbar mToolBar;
-    @BindView(R.id.center_title)
-    protected TextView mCenterTitle;
-
     private Unbinder mUnBinder;
 
-    protected void initToolBar() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolBar);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-        setHasOptionsMenu(true);
-        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KeyboardUtils.hideSoftInput(_mActivity);
-                pop();
-            }
-        });
-    }
+//    protected void initToolBar() {
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolBar);
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayShowHomeEnabled(true);
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setDisplayShowTitleEnabled(false);
+//        }
+//        setHasOptionsMenu(true);
+//        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                KeyboardUtils.hideSoftInput(_mActivity);
+//                pop();
+//            }
+//        });
+//    }
 
     protected void initView(View view, Bundle savedInstanceState) {
-        initToolBar();
     }
 
     @Override

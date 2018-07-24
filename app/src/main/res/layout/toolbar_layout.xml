@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
-    android:elevation="1dp"
-    android:paddingTop="15dp">
+    android:layout_height="50dip"
+    android:background="@color/colorPrimary" >
 
     <TextView
-        android:id="@+id/center_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:layout_margin="0dp"
-        android:includeFontPadding="false"
-        android:padding="0dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font_title"
-        tools:text="标题" />
+        android:id="@+id/txt_left"
+        style="@style/txt_titleStyle1"
+        android:textSize="17sp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:text="@string/app"
+        android:visibility="gone"/>
 
-</android.support.v7.widget.Toolbar>
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="40dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:contentDescription="@string/app"
+        android:src="@mipmap/icon_back" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        style="@style/txt_titleStyle1"
+        android:text="@string/app"
+        android:layout_centerInParent="true"  />
+
+    <ImageView
+        android:id="@+id/img_right"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:contentDescription="@string/app"
+        android:src="@mipmap/icon_groupinfo" />
+
+    <TextView
+        android:id="@+id/txt_right"
+        style="@style/txt_titleStyle1"
+        android:textSize="16sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"  />
+
+</RelativeLayout>

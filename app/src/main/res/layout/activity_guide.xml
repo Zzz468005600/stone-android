@@ -15,7 +15,7 @@
         android:src="@mipmap/icon_logo" />
 
     <ImageView
-        android:id="@+id/img_login"
+        android:id="@+id/login"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -25,7 +25,7 @@
         android:src="@mipmap/icon_btn_login" />
 
     <ImageView
-        android:id="@+id/img_register"
+        android:id="@+id/register"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"

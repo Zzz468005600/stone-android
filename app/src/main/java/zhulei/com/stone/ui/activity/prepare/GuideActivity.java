@@ -12,6 +12,11 @@ import zhulei.com.stone.ui.activity.user.LoginActivity;
 import zhulei.com.stone.ui.base.BaseActivity;
 import zhulei.com.stone.ui.base.BaseFragment;
 
+/**
+ * author: zhulei
+ * date: 2018/7/26
+ * blog: http://www.zhuleiblog.com/
+ */
 public class GuideActivity extends BaseActivity {
 
     @Override

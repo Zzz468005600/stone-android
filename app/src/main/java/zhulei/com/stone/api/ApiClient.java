@@ -17,7 +17,7 @@ import zhulei.com.stone.BuildConfig;
 /**
  * Created by zhulei on 16/7/31.
  */
-public class AppClient {
+public class ApiClient {
 
     public static final String BASE_URL = "";
 
